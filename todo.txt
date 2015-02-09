@@ -1,0 +1,2 @@
+1.根据model生成dao , 以及相应的enum
+

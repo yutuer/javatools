@@ -7,6 +7,5 @@ public class T {
 		Integer i = 1;
 		i = -i;
 		System.out.println(i);
-
 	}
 }

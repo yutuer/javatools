@@ -1,12 +1,13 @@
 package spring;
 
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
 
 public class T {
 	public static void main(String[] args) {
-		Integer i = 1;
-		i = -i;
-		System.out.println(i);
-
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("redis.xml");
+		RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("jedisTemplateaa");
+	
 	}
 }

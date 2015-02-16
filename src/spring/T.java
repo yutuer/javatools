@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class T {
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("redis.xml");
-		RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("jedisTemplateaa");
-	
+		RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("jedisTemplate");
 	}
 }

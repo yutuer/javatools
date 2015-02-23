@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-public class T {
+public class Test {
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("redis.xml");
 		RedisTemplate redisTemplate = (RedisTemplate) ctx.getBean("jedisTemplate");

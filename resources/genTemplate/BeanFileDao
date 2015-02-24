@@ -1,0 +1,10 @@
+package parseExcel.dao;
+
+public class %cname%Dao{
+	%field_def%
+	
+	public %cname%(%construct_def%){
+		%construct_assign%
+	}
+		
+}

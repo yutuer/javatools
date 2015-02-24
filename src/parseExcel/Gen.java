@@ -73,13 +73,14 @@ public class Gen {
 
 	private static void createBeanFile(Map<String, List<ExcelHead>> map_head) {
 		final String templateString = getTemplateString("resources/genTemplate/BeanFile");
+		final String templateDaoString = getTemplateString("resources/genTemplate/BeanFileDao");
 		final String field = "public final ";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
 			final List<ExcelHead> fieldList = entry.getValue();
 			IBeanFile beanFileLogic = new IBeanFile() {
 				@Override
-				public String ddd(String cname, List<ExcelHead> fieldList) {
+				public String createContent(String cname, List<ExcelHead> fieldList) {
 					List<String> conDefList = Lists.newArrayList();
 					StringBuilder fieldsb = new StringBuilder();
 					StringBuilder conAssignsb = new StringBuilder();
@@ -96,8 +97,15 @@ public class Gen {
 					return content;
 				}
 			};
-			String content = beanFileLogic.ddd(cname, fieldList);
-			writeFile("/src/parseExcel/bean/" + cname, content);
+			IBeanFile beanFileDaoLogic = new IBeanFile() {
+				@Override
+				public String createContent(String cname, List<ExcelHead> fieldList) {
+
+					return null;
+				}
+			};
+			writeFile("/src/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
+			writeFile("/src/parseExcel/bean/" + cname + "Dao", beanFileLogic.createContent(cname, fieldList));
 		}
 	}
 }

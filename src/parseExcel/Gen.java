@@ -26,39 +26,9 @@ public class Gen {
 		for (Entry<String, List<List<Object>>> entry : map_data.entrySet()) {
 			String cname = entry.getKey();
 			Class c = Class.forName("parseExcel.bean." + cname);
-			List l = aa(entry.getValue(), c, map_head.get(cname));
+			List l = ExcelUtil.transferObjFromData(entry.getValue(), c, map_head.get(cname));
 			System.out.println(l);
 		}
-	}
-
-	public static <T> List<T> aa(List<List<Object>> lists, Class<T> c, List<ExcelHead> heads) {
-		try {
-			List<T> objs = Lists.newArrayList();
-			List<Class> ll = Lists.newArrayList();
-			for (ExcelHead eh : heads) {
-				ll.add(String.class);
-			}
-			assert heads.size() == ll.size();
-			Constructor<T> con = c.getConstructor(ll.toArray(new Class[0]));
-			for (List<Object> list : lists) {
-				T t = con.newInstance(list.toArray());
-				objs.add(t);
-			}
-			return objs;
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	private static String getTemplateString(String path) {
@@ -143,7 +113,7 @@ public class Gen {
 					String conDef = MyUtil.getJoinString(conDefList, "", ",", "");
 					String conRef = MyUtil.getJoinString(conRefList, "", ",", "");
 					String toString = MyUtil.getJoinString(toStringList, "", "+\\\", ", "");
-					//去掉最后一个,
+					// 去掉最后一个,
 					toString = toString.substring(0, toString.length() - 1);
 					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
 							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)

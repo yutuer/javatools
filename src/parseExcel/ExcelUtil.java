@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,7 +38,37 @@ import com.google.common.collect.Lists;
  */
 public class ExcelUtil {
 
-	private static final Logger log = Logger.getLogger("forcehua");
+	public static final Logger log = Logger.getRootLogger();
+
+	public static <T> List<T> transferObjFromData(List<List<Object>> lists, Class<T> c, List<ExcelHead> heads) {
+		try {
+			List<T> objs = Lists.newArrayList();
+			List<Class> ll = Lists.newArrayList();
+			for (ExcelHead eh : heads) {
+				ll.add(String.class);
+			}
+			assert heads.size() == ll.size();
+			Constructor<T> con = c.getConstructor(ll.toArray(new Class[0]));
+			for (List<Object> list : lists) {
+				T t = con.newInstance(list.toArray());
+				objs.add(t);
+			}
+			return objs;
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * 获取excel列数

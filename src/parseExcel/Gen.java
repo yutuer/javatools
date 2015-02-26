@@ -142,7 +142,9 @@ public class Gen {
 					String conDef_str = MyUtil.getJoinString(conDefList_str, "", ",", "");
 					String conDef = MyUtil.getJoinString(conDefList, "", ",", "");
 					String conRef = MyUtil.getJoinString(conRefList, "", ",", "");
-					String toString = MyUtil.getJoinString(toStringList, "", "+\\\",", "");
+					String toString = MyUtil.getJoinString(toStringList, "", "+\\\", ", "");
+					//去掉最后一个,
+					toString = toString.substring(0, toString.length() - 1);
 					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
 							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)
 							.replaceAll("%construct_assign%", conAssignsb.toString()).replaceAll("%construct_strAssign%", conRef)
@@ -153,6 +155,10 @@ public class Gen {
 				private String getMethod(String type) {
 					if ("int".equals(type.trim())) {
 						return "Integer.parseInt";
+					} else if ("double".equals(type.trim())) {
+						return "Double.parseDouble";
+					} else if ("long".equals(type.trim())) {
+						return "Long.parseLong";
 					} else {
 						return "String";
 					}
@@ -161,6 +167,10 @@ public class Gen {
 				private String transferType(String type) {
 					if ("int".equals(type.trim())) {
 						return "Integer";
+					} else if ("double".equals(type.trim())) {
+						return "Double";
+					} else if ("long".equals(type.trim())) {
+						return "Long";
 					} else {
 						return "String";
 					}

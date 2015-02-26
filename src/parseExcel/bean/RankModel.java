@@ -37,7 +37,7 @@ this.rewardOil=rewardOil;
 	
 	@Override
 	public String toString() {
-		return "RankModel[name="+name+",type="+type+",exp="+exp+",icon="+icon+",rewardGold="+rewardGold+",rewardOil="+rewardOil+"]";
+		return "RankModel[name="+name+", type="+type+", exp="+exp+", icon="+icon+", rewardGold="+rewardGold+", rewardOil="+rewardOil+"]";
 	}
 		
 }

@@ -2,9 +2,18 @@ package parseExcel.bean;
 
 public class %cname%{
 	%field_def%
-	
+
 	public %cname%(%construct_def%){
 		%construct_assign%
+	}
+
+	public %cname%(%construct_strDef%){
+		this(%construct_strAssign%);
+	}
+	
+	@Override
+	public String toString() {
+		return "%cname%[%toString%]";
 	}
 		
 }

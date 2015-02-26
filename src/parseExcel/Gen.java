@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,12 +17,48 @@ import util.MyUtil;
 import com.google.common.collect.Lists;
 
 public class Gen {
-	public static void main(String[] args) {
-		final String fileName = "RankModel.xlsx";
+	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
+		final String cName = "RankModel";
+		final String fileName = cName + ".xlsx";
 		Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, fileName);
-		createBeanFile(map_head);
+		createDataBeanFile(map_head);
 		Map<String, List<List<Object>>> map_data = ExcelUtil.getExcelData(false, fileName, map_head);
-		System.out.println(map_data);
+		for (Entry<String, List<List<Object>>> entry : map_data.entrySet()) {
+			String cname = entry.getKey();
+			Class c = Class.forName("parseExcel.bean." + cname);
+			List l = aa(entry.getValue(), c, map_head.get(cname));
+			System.out.println(l);
+		}
+	}
+
+	public static <T> List<T> aa(List<List<Object>> lists, Class<T> c, List<ExcelHead> heads) {
+		try {
+			List<T> objs = Lists.newArrayList();
+			List<Class> ll = Lists.newArrayList();
+			for (ExcelHead eh : heads) {
+				ll.add(String.class);
+			}
+			assert heads.size() == ll.size();
+			Constructor<T> con = c.getConstructor(ll.toArray(new Class[0]));
+			for (List<Object> list : lists) {
+				T t = con.newInstance(list.toArray());
+				objs.add(t);
+			}
+			return objs;
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private static String getTemplateString(String path) {
@@ -71,9 +109,8 @@ public class Gen {
 		}
 	}
 
-	private static void createBeanFile(Map<String, List<ExcelHead>> map_head) {
+	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
 		final String templateString = getTemplateString("resources/genTemplate/BeanFile");
-		final String templateDaoString = getTemplateString("resources/genTemplate/BeanFileDao");
 		final String field = "public final ";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
@@ -81,20 +118,52 @@ public class Gen {
 			IBeanFile beanFileLogic = new IBeanFile() {
 				@Override
 				public String createContent(String cname, List<ExcelHead> fieldList) {
+					List<String> conDefList_str = Lists.newArrayList();
 					List<String> conDefList = Lists.newArrayList();
+					List<String> conRefList = Lists.newArrayList();
+					List<String> toStringList = Lists.newArrayList();
 					StringBuilder fieldsb = new StringBuilder();
 					StringBuilder conAssignsb = new StringBuilder();
 					for (ExcelHead head : fieldList) {
+						String type = transferType(head.type);
 						fieldsb.append("//").append(head.desc).append("\n");
-						fieldsb.append(field).append(head.type).append(" ").append(head.title).append(";").append("\n").append("\n");
+						fieldsb.append(field).append(type).append(" ").append(head.title).append(";").append("\n").append("\n");
 
-						conDefList.add(head.type + " " + head.title);
+						conDefList_str.add("String " + head.title);
+						conDefList.add(type + " " + head.title);
+						if ("String".equals(type)) {
+							conRefList.add(head.title);
+						} else {
+							conRefList.add(getMethod(head.type) + "(" + head.title + ")");
+						}
+						toStringList.add(head.title + "=\\\"+" + head.title);
 						conAssignsb.append("this.").append(head.title).append("=").append(head.title).append(";\n");
 					}
+					String conDef_str = MyUtil.getJoinString(conDefList_str, "", ",", "");
 					String conDef = MyUtil.getJoinString(conDefList, "", ",", "");
+					String conRef = MyUtil.getJoinString(conRefList, "", ",", "");
+					String toString = MyUtil.getJoinString(toStringList, "", "+\\\",", "");
 					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
-							.replaceAll("%construct_def%", conDef).replaceAll("%construct_assign%", conAssignsb.toString());
+							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)
+							.replaceAll("%construct_assign%", conAssignsb.toString()).replaceAll("%construct_strAssign%", conRef)
+							.replaceAll("%toString%", toString.toString());
 					return content;
+				}
+
+				private String getMethod(String type) {
+					if ("int".equals(type.trim())) {
+						return "Integer.parseInt";
+					} else {
+						return "String";
+					}
+				}
+
+				private String transferType(String type) {
+					if ("int".equals(type.trim())) {
+						return "Integer";
+					} else {
+						return "String";
+					}
 				}
 			};
 			IBeanFile beanFileDaoLogic = new IBeanFile() {
@@ -105,7 +174,6 @@ public class Gen {
 				}
 			};
 			writeFile("/src/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
-			writeFile("/src/parseExcel/bean/" + cname + "Dao", beanFileLogic.createContent(cname, fieldList));
 		}
 	}
 }

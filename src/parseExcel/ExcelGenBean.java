@@ -16,7 +16,7 @@ import util.MyUtil;
 
 import com.google.common.collect.Lists;
 
-public class Gen {
+public class ExcelGenBean {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
 		final String cName = "RankModel";
 		final String fileName = cName + ".xlsx";

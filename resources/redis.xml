@@ -45,6 +45,7 @@
         <property name="timeout" value="15000"></property>
         <property name="usePool" value="true"></property>
     </bean>
+    
     <bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"></property>
         <property name="keySerializer">

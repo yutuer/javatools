@@ -1,33 +1,27 @@
 package parseExcel.bean;
 
 public class RankModel{
-	//名字
-private String name;
-
-//类型
-private String type;
-
-//数量
-private Integer exp;
-
-//资源
-private String icon;
-
-//等级奖励星币
-private Integer rewardGold;
-
-//等级奖励太阳水
-private Integer rewardOil;
-
+		//名字
+	private String name;
+	//类型
+	private String type;
+	//数量
+	private Integer exp;
+	//资源
+	private String icon;
+	//等级奖励星币
+	private Integer rewardGold;
+	//等级奖励太阳水
+	private Integer rewardOil;
 
 
 	public RankModel(String name,String type,Integer exp,String icon,Integer rewardGold,Integer rewardOil){
-		this.name=name;
-this.type=type;
-this.exp=exp;
-this.icon=icon;
-this.rewardGold=rewardGold;
-this.rewardOil=rewardOil;
+			this.name=name;
+	this.type=type;
+	this.exp=exp;
+	this.icon=icon;
+	this.rewardGold=rewardGold;
+	this.rewardOil=rewardOil;
 
 	}
 
@@ -35,43 +29,43 @@ this.rewardOil=rewardOil;
 		this(name,type,Integer.parseInt(exp),icon,Integer.parseInt(rewardGold),Integer.parseInt(rewardOil));
 	}
 	
-	public String getName (){
-  return name;
+	public String getName(){
+ 	return name;
 }
-public String getType (){
-  return type;
+public String getType(){
+ 	return type;
 }
-public Integer getExp (){
-  return exp;
+public Integer getExp(){
+ 	return exp;
 }
-public String getIcon (){
-  return icon;
+public String getIcon(){
+ 	return icon;
 }
-public Integer getRewardGold (){
-  return rewardGold;
+public Integer getRewardGold(){
+ 	return rewardGold;
 }
-public Integer getRewardOil (){
-  return rewardOil;
+public Integer getRewardOil(){
+ 	return rewardOil;
 }
 
 	
 	public void setName(String name){
-this.name=name;
+ 	this.name=name;
 }
 public void setType(String type){
-this.type=type;
+ 	this.type=type;
 }
 public void setExp(Integer exp){
-this.exp=exp;
+ 	this.exp=exp;
 }
 public void setIcon(String icon){
-this.icon=icon;
+ 	this.icon=icon;
 }
 public void setRewardGold(Integer rewardGold){
-this.rewardGold=rewardGold;
+ 	this.rewardGold=rewardGold;
 }
 public void setRewardOil(Integer rewardOil){
-this.rewardOil=rewardOil;
+ 	this.rewardOil=rewardOil;
 }
 
 	

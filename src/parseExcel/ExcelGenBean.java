@@ -84,7 +84,7 @@ public class ExcelGenBean {
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
 		final String templateString = getTemplateString("resources/genTemplate/BeanFile");
-		final String field = "private ";
+		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
 			final List<ExcelHead> fieldList = entry.getValue();
@@ -95,19 +95,24 @@ public class ExcelGenBean {
 					List<String> conDefList = Lists.newArrayList();
 					List<String> conRefList = Lists.newArrayList();
 					List<String> toStringList = Lists.newArrayList();
+					String fieldFormat = "\t//%s\n\t%s %s %s;\n";
 					StringBuilder fieldsb = new StringBuilder();
+
+					String conAssignFormat = "\tthis.%s=%s;\n";
 					StringBuilder conAssignsb = new StringBuilder();
+
+					String getMethodFormat = "public %s get%s(){\n \treturn %s;\n}\n";
 					StringBuilder getMethodsb = new StringBuilder();
+
+					String setMethodFormat = "public void set%s(%s %s){\n \tthis.%s=%s;\n}\n";
 					StringBuilder setMethodsb = new StringBuilder();
 					for (ExcelHead head : fieldList) {
 						String type = transferType(head.type);
-						fieldsb.append("//").append(head.desc).append("\n");
-						fieldsb.append(field).append(type).append(" ").append(head.title).append(";").append("\n").append("\n");
+						fieldsb.append(String.format(fieldFormat, head.desc, field, type, head.title));
 
-						getMethodsb.append("public ").append(type).append(" get").append(MyUtil.firstChar2Upper(head.title)).append(" (){\n  return ")
-								.append(head.title).append(";\n}\n");
-						setMethodsb.append("public void set").append(MyUtil.firstChar2Upper(head.title)).append("(").append(type).append(" ")
-								.append(head.title).append("){\nthis.").append(head.title).append("=").append(head.title).append(";\n}\n");
+						getMethodsb.append(String.format(getMethodFormat, type, MyUtil.firstChar2Upper(head.title), head.title));
+
+						setMethodsb.append(String.format(setMethodFormat, MyUtil.firstChar2Upper(head.title), type, head.title, head.title, head.title));
 
 						conDefList_str.add("String " + head.title);
 						conDefList.add(type + " " + head.title);
@@ -117,7 +122,7 @@ public class ExcelGenBean {
 							conRefList.add(getMethod(head.type) + "(" + head.title + ")");
 						}
 						toStringList.add(head.title + "=\\\"+" + head.title);
-						conAssignsb.append("this.").append(head.title).append("=").append(head.title).append(";\n");
+						conAssignsb.append(String.format(conAssignFormat, head.title, head.title));
 					}
 					String conDef_str = MyUtil.getJoinString(conDefList_str, "", ",", "");
 					String conDef = MyUtil.getJoinString(conDefList, "", ",", "");

@@ -11,6 +11,10 @@ public class %cname%{
 		this(%construct_strAssign%);
 	}
 	
+	%get_method%
+	
+	%set_method%
+	
 	@Override
 	public String toString() {
 		return "%cname%[%toString%]";

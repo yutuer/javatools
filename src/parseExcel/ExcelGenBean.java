@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,16 +16,21 @@ import com.google.common.collect.Lists;
 
 public class ExcelGenBean {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
-		final String cName = "RankModel";
-		final String fileName = cName + ".xlsx";
-		Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, fileName);
-		createDataBeanFile(map_head);
-		Map<String, List<List<Object>>> map_data = ExcelUtil.getExcelData(false, fileName, map_head);
-		for (Entry<String, List<List<Object>>> entry : map_data.entrySet()) {
-			String cname = entry.getKey();
-			Class c = Class.forName("parseExcel.bean." + cname);
-			List l = ExcelUtil.transferObjFromData(entry.getValue(), c, map_head.get(cname));
-			System.out.println(l);
+		genBean();
+		
+	}
+
+	public static void genBean() {
+		String path = "resources/excels";
+		String path2 = "excels";
+		File dir = new File(path);
+		if (dir.isDirectory()) {
+			for (File f : dir.listFiles()) {
+				String fileName = f.getName();
+				Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, path2 + "/" + fileName);
+				createDataBeanFile(map_head);
+				// ExcelReadData.readData(fileName, map_head);
+			}
 		}
 	}
 

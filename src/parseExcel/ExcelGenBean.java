@@ -17,7 +17,6 @@ import com.google.common.collect.Lists;
 public class ExcelGenBean {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
 		genBean();
-		
 	}
 
 	public static void genBean() {
@@ -27,9 +26,10 @@ public class ExcelGenBean {
 		if (dir.isDirectory()) {
 			for (File f : dir.listFiles()) {
 				String fileName = f.getName();
-				Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, path2 + "/" + fileName);
+				String filePath = path2 + "/" + fileName;
+				Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, filePath);
 				createDataBeanFile(map_head);
-				// ExcelReadData.readData(fileName, map_head);
+				// ExcelReadData.readData(filePath, map_head);
 			}
 		}
 	}
@@ -84,7 +84,7 @@ public class ExcelGenBean {
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
 		final String templateString = getTemplateString("resources/genTemplate/BeanFile");
-		final String field = "public final ";
+		final String field = "private ";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
 			final List<ExcelHead> fieldList = entry.getValue();
@@ -97,10 +97,17 @@ public class ExcelGenBean {
 					List<String> toStringList = Lists.newArrayList();
 					StringBuilder fieldsb = new StringBuilder();
 					StringBuilder conAssignsb = new StringBuilder();
+					StringBuilder getMethodsb = new StringBuilder();
+					StringBuilder setMethodsb = new StringBuilder();
 					for (ExcelHead head : fieldList) {
 						String type = transferType(head.type);
 						fieldsb.append("//").append(head.desc).append("\n");
 						fieldsb.append(field).append(type).append(" ").append(head.title).append(";").append("\n").append("\n");
+
+						getMethodsb.append("public ").append(type).append(" get").append(MyUtil.firstChar2Upper(head.title)).append(" (){\n  return ")
+								.append(head.title).append(";\n}\n");
+						setMethodsb.append("public void set").append(MyUtil.firstChar2Upper(head.title)).append("(").append(type).append(" ")
+								.append(head.title).append("){\nthis.").append(head.title).append("=").append(head.title).append(";\n}\n");
 
 						conDefList_str.add("String " + head.title);
 						conDefList.add(type + " " + head.title);
@@ -116,12 +123,13 @@ public class ExcelGenBean {
 					String conDef = MyUtil.getJoinString(conDefList, "", ",", "");
 					String conRef = MyUtil.getJoinString(conRefList, "", ",", "");
 					String toString = MyUtil.getJoinString(toStringList, "", "+\\\", ", "");
-					// 去掉最后一个,
+					// 去掉最后一个','
 					toString = toString.substring(0, toString.length() - 1);
 					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
 							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)
 							.replaceAll("%construct_assign%", conAssignsb.toString()).replaceAll("%construct_strAssign%", conRef)
-							.replaceAll("%toString%", toString.toString());
+							.replaceAll("%toString%", toString.toString()).replaceAll("%get_method%", getMethodsb.toString())
+							.replaceAll("%set_method%", setMethodsb.toString());
 					return content;
 				}
 
@@ -149,13 +157,7 @@ public class ExcelGenBean {
 					}
 				}
 			};
-			IBeanFile beanFileDaoLogic = new IBeanFile() {
-				@Override
-				public String createContent(String cname, List<ExcelHead> fieldList) {
 
-					return null;
-				}
-			};
 			writeFile("/src/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
 		}
 	}

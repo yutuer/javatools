@@ -2,22 +2,22 @@ package parseExcel.bean;
 
 public class RankModel{
 	//名字
-public final String name;
+private String name;
 
 //类型
-public final String type;
+private String type;
 
 //数量
-public final Integer exp;
+private Integer exp;
 
 //资源
-public final String icon;
+private String icon;
 
 //等级奖励星币
-public final Integer rewardGold;
+private Integer rewardGold;
 
 //等级奖励太阳水
-public final Integer rewardOil;
+private Integer rewardOil;
 
 
 
@@ -34,6 +34,46 @@ this.rewardOil=rewardOil;
 	public RankModel(String name,String type,String exp,String icon,String rewardGold,String rewardOil){
 		this(name,type,Integer.parseInt(exp),icon,Integer.parseInt(rewardGold),Integer.parseInt(rewardOil));
 	}
+	
+	public String getName (){
+  return name;
+}
+public String getType (){
+  return type;
+}
+public Integer getExp (){
+  return exp;
+}
+public String getIcon (){
+  return icon;
+}
+public Integer getRewardGold (){
+  return rewardGold;
+}
+public Integer getRewardOil (){
+  return rewardOil;
+}
+
+	
+	public void setName(String name){
+this.name=name;
+}
+public void setType(String type){
+this.type=type;
+}
+public void setExp(Integer exp){
+this.exp=exp;
+}
+public void setIcon(String icon){
+this.icon=icon;
+}
+public void setRewardGold(Integer rewardGold){
+this.rewardGold=rewardGold;
+}
+public void setRewardOil(Integer rewardOil){
+this.rewardOil=rewardOil;
+}
+
 	
 	@Override
 	public String toString() {

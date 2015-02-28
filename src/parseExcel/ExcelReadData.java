@@ -8,7 +8,8 @@ import parseExcel.bean.RankModel;
 
 public class ExcelReadData {
 
-	public static void readData(String fileName, Map<String, List<ExcelHead>> map_head) {
+	public static void readData(String fileName) {
+		Map<String, List<ExcelHead>> map_head = ExcelUtil.getExcelBeans(false, fileName);
 		Map<String, List<List<Object>>> map_data = ExcelUtil.getExcelData(false, fileName, map_head);
 		try {
 			for (Entry<String, List<List<Object>>> entry : map_data.entrySet()) {

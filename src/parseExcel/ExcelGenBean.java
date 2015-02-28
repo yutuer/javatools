@@ -16,10 +16,10 @@ import com.google.common.collect.Lists;
 
 public class ExcelGenBean {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
-		genBean();
+		genBeans();
 	}
 
-	public static void genBean() {
+	public static void genBeans() {
 		String path = "resources/excels";
 		String path2 = "excels";
 		File dir = new File(path);

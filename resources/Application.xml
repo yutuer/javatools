@@ -15,29 +15,13 @@
            http://www.springframework.org/schema/task/spring-task-3.0.xsd 
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+		   
+	<bean id="springContextUtil" class="spring.SpringContextUtil" />
 
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxTotal" value="500" />
-		<property name="maxIdle" value="5" />
-		<property name="maxWaitMillis" value="30000" />
-		<property name="testOnBorrow" value="true" />
-	</bean>
+	<import resource="redis.xml" />
 
-	<bean id="jedisConnectionFactory"
-		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		destroy-method="destroy">
-		<property name="poolConfig" ref="jedisPoolConfig"></property>
-		<property name="hostName" value="127.0.0.1"></property>
-		<property name="port" value="6379"></property>
-		<property name="timeout" value="15000"></property>
-		<property name="usePool" value="true"></property>
-	</bean>
+	<bean id="UserDao" class="spring.UserDao" />
 
-	<bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="jedisConnectionFactory"></property>
-		<property name="keySerializer">
-			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		</property>
-	</bean>
+	<bean id="UserService" class="spring.UserService" />
+
 </beans>

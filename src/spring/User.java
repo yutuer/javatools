@@ -3,6 +3,11 @@ package spring;
 import java.io.Serializable;
 
 public class User implements Serializable{
+	
+	public static enum Field {
+		ID, NAME, AGE;
+	}
+	
 	private int id;
 	private String name;
 	private int age;

@@ -15,13 +15,37 @@
            http://www.springframework.org/schema/task/spring-task-3.0.xsd 
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-		   
+
 	<bean id="springContextUtil" class="spring.SpringContextUtil" />
 
 	<import resource="redis.xml" />
 
 	<bean id="UserDao" class="spring.UserDao" />
-
 	<bean id="UserService" class="spring.UserService" />
 
+	<!--普通数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/test?useunicode=true&characterEncoding=utf8"
+		p:username="root" p:password="123456" />
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource" />
+
+	<!--事务管理器 -->
+	<bean id="jdbcManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+	<!-- 添加Spring事务增强 -->
+	<aop:config proxy-target-class="true">
+		<!-- 所有继承于BaseService类的子孙类的public方法都进行事务增强 -->
+		<aop:pointcut id="serviceJdbcMethod" expression="within(user.nestcall.BaseService+)" />
+		<aop:advisor pointcut-ref="serviceJdbcMethod" advice-ref="jdbcAdvice"
+			order="0" />
+	</aop:config>
+	<tx:advice id="jdbcAdvice" transaction-manager="jdbcManager">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
 </beans>

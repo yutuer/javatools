@@ -11,5 +11,6 @@ public class Test {
 		User user1 = new User(1, "zhangSan", 12);
 		User user2 = new User(2, "lisi", 32);
 		userService.addUser(user1, user2);
+		
 	}
 }

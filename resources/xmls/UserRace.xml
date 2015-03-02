@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<bean>
-	<field name="" type="" ></field>
-</bean>
+<beans>
+	<bean className="User">
+		<field name="id" type="Long" desc="id"></field>
+		<field name="account" type="String"></field>
+		<field name="passwd" type="String"></field>
+		<field name="telephone" type="String"></field>
+		<field name="email" type="String"></field>
+		<field name="userRaces" type="UserRace" collection="List"></field>
+	</bean>
+	<bean className="UserRace">
+		<field name="id" type="Long" desc="id"></field>
+		<field name="userId" type="Long"></field>
+		<field name="raceId" type="Long" desc="种族id"></field>
+		<field name="lastLoginTime" type="Long"></field>
+		<field name="lastOperateTime" type="Long" desc="最后一次发送消息的时间"></field>
+		<field name="nickName" type="String"></field>
+		<field name="campCid" type="Integer"></field>
+		<field name="armyShop" type="String" collection="Set"></field>
+		<field name="skillShop" type="String" collection="Set"></field>
+		<field name="upgradeSkillCid" type="Integer" desc="空的时候为0"></field>
+	</bean>
+</beans>

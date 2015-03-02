@@ -34,33 +34,6 @@ public class ExcelGenBean {
 		}
 	}
 
-	private static String getTemplateString(String path) {
-		FileReader fr = null;
-		try {
-			File file = new File(path);
-			fr = new FileReader(file);
-			char[] c = new char[(int) file.length()];
-			fr.read(c);
-			StringBuilder sb = new StringBuilder();
-			sb.append(c);
-			String s = sb.toString();
-			return s;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fr != null) {
-					fr.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
 	private static void writeFile(String filePath, String content) {
 		FileWriter fw = null;
 		try {
@@ -83,7 +56,7 @@ public class ExcelGenBean {
 	}
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
-		final String templateString = getTemplateString("resources/genTemplate/BeanFile");
+		final String templateString = MyUtil.getFileContent("resources/genTemplate/BeanFile");
 		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
@@ -106,6 +79,7 @@ public class ExcelGenBean {
 
 					String setMethodFormat = "public void set%s(%s %s){\n \tthis.%s=%s;\n}\n";
 					StringBuilder setMethodsb = new StringBuilder();
+
 					for (ExcelHead head : fieldList) {
 						String type = transferType(head.type);
 						fieldsb.append(String.format(fieldFormat, head.desc, field, type, head.title));

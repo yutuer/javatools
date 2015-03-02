@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1020,6 +1021,27 @@ public class MyUtil {
 			}
 		}
 		return "result:\n" + str;
+	}
+
+	public static void writeFile(String filePath, String content) {
+		FileWriter fw = null;
+		try {
+			String p = System.getProperty("user.dir");
+			final String writePath = p.replaceAll("\\\\", "/") + filePath + ".java";
+			File writeFile = new File(writePath);
+			fw = new FileWriter(writeFile);
+			fw.write(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fw != null) {
+					fw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static String getFileContent(String fileName) {

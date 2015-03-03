@@ -92,7 +92,7 @@ public class ChatClient extends JFrame implements ActionListener {
 
 		if (e.getSource() == chatField) {
 			if (cc != null) {
-				cc.send(chatField.getText());
+				cc.send(chatField.getText().getBytes());
 				chatField.setText("");
 				chatField.requestFocus();
 			}
@@ -157,7 +157,7 @@ public class ChatClient extends JFrame implements ActionListener {
 			location = args[0];
 			System.out.println("Default server url specified: \'" + location + "\'");
 		} else {
-			location = "ws://localhost:808";
+			location = "ws://localhost:8080/apis/reqWrapper";
 			System.out.println("Default server url not specified: defaulting to \'" + location + "\'");
 		}
 		new ChatClient(location);

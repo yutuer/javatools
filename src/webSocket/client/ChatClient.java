@@ -1,4 +1,4 @@
-package webSocket;
+package webSocket.client;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -117,7 +117,7 @@ public class ChatClient extends JFrame implements ActionListener {
 
 					@Override
 					public void onClose(int code, String reason, boolean remote) {
-						ta.append("You have been disconnected from: " + getURI() + "; Code: " + code + " " + reason + "\n");
+						ta.append("You have been disconnected from: " + getURI() + "; Code: " + code + " ;reason:" + reason + "\n");
 						ta.setCaretPosition(ta.getDocument().getLength());
 						connect.setEnabled(true);
 						uriField.setEditable(true);

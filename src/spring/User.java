@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 	
+	private static final long serialVersionUID = 1752808305845821682L;
+
 	public static enum Field {
 		ID, NAME, AGE;
 	}

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import parseExcel.gen.IBeanFile;
 import util.MyUtil;
 
 import com.google.common.collect.Lists;

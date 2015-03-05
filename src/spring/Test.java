@@ -7,9 +7,10 @@ public class Test {
 	public static void main(String[] args) {
 		new ClassPathXmlApplicationContext("Application.xml");
 		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
-		User user1 = new User(1, "zhangSan", 12);
-		User user2 = new User(2, "lisi", 32);
-		userService.addUser(user1, user2);
-		
+		long beginTime = System.nanoTime();
+		userService.testSpeed(100000);
+		long endTime = System.nanoTime();
+		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
+
 	}
 }

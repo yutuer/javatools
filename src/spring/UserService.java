@@ -6,9 +6,13 @@ public class UserService {
 	public void addUser(User... users) {
 		for (User u : users) {
 			userDao.addUser(u);
-			if (1 == 1) {
-				throw new RuntimeException("111");
-			}
+		}
+	}
+
+	public void testSpeed(int count) {
+		for (int i = 0; i < count; i++) {
+			userDao.addRandomUser();
+			userDao.getUser(i);
 		}
 	}
 }

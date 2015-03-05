@@ -15,6 +15,12 @@ public class %cname%{
 	
 	%set_method%
 	
+	public String buildAddSql() {
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("%insert_sql%%field_Sql%)");
+		return sqlBuffer.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "%cname%[%toString%]";

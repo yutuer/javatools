@@ -1,8 +1,6 @@
 package parseExcel;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -55,7 +53,7 @@ public class ExcelGenBean {
 	}
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
-		final String templateString = MyUtil.getFileContent("resources/genTemplate/BeanFile");
+		final String templateString = MyUtil.getFileContent("resources/genTemplate/ExcelBeanFile");
 		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
@@ -79,7 +77,19 @@ public class ExcelGenBean {
 					String setMethodFormat = "public void set%s(%s %s){\n \tthis.%s=%s;\n}\n";
 					StringBuilder setMethodsb = new StringBuilder();
 
+					String insertSqlFormat = "insert into `pureland`.`%s`(%s) values(";
+					List<String> insertSqlList = Lists.newArrayList();
+					List<String> fieldSqlList = Lists.newArrayList();
+
+					String aaFormat = "'\\\").append(this.%s()).append(\\\"',";
+					String bbFormat = "\\\").append(this.%s()).append(\\\",";
 					for (ExcelHead head : fieldList) {
+						insertSqlList.add("`" + getTableName(head.title) + "`");
+						if ("String".equals(head.type)) {
+							fieldSqlList.add(String.format(aaFormat, createGetMethod(head.title)));
+						} else {
+							fieldSqlList.add(String.format(bbFormat, createGetMethod(head.title)));
+						}
 						String type = transferType(head.type);
 						fieldsb.append(String.format(fieldFormat, head.desc, field, type, head.title));
 
@@ -103,12 +113,36 @@ public class ExcelGenBean {
 					String toString = MyUtil.getJoinString(toStringList, "", "+\\\", ", "");
 					// 去掉最后一个','
 					toString = toString.substring(0, toString.length() - 1);
+
+					String insertSql_str = MyUtil.getJoinString(insertSqlList, "", ",", "");
+					String fieldSql = MyUtil.getJoinString(fieldSqlList, "", "", "");
+
+					String tableName = getTableName(MyUtil.firstChar2Lower(cname));
+					String insertSql = String.format(insertSqlFormat, tableName, insertSql_str);
+
 					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
 							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)
 							.replaceAll("%construct_assign%", conAssignsb.toString()).replaceAll("%construct_strAssign%", conRef)
 							.replaceAll("%toString%", toString.toString()).replaceAll("%get_method%", getMethodsb.toString())
-							.replaceAll("%set_method%", setMethodsb.toString());
+							.replaceAll("%set_method%", setMethodsb.toString()).replaceAll("%insert_sql%", insertSql).replaceAll("%field_Sql%", fieldSql);
 					return content;
+				}
+
+				private String createGetMethod(String title) {
+					return "get" + MyUtil.firstChar2Upper(title);
+				}
+
+				private String getTableName(String cname) {
+					StringBuilder sb = new StringBuilder();
+					for (int i = 0; i < cname.length(); i++) {
+						char c = cname.charAt(i);
+						if (Character.isUpperCase(c)) {
+							sb.append("_").append(Character.toLowerCase(c));
+						} else {
+							sb.append(c);
+						}
+					}
+					return sb.toString();
 				}
 
 				private String getMethod(String type) {

@@ -69,6 +69,12 @@ public void setRewardOil(Integer rewardOil){
 }
 
 	
+	public String buildAddSql() {
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("insert into `pureland`.`rank_model`(`name`,`type`,`exp`,`icon`,`reward_gold`,`reward_oil`) values('").append(this.getName()).append("','").append(this.getType()).append("',").append(this.getExp()).append(",'").append(this.getIcon()).append("',").append(this.getRewardGold()).append(",").append(this.getRewardOil()).append(")");
+		return sqlBuffer.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "RankModel[name="+name+", type="+type+", exp="+exp+", icon="+icon+", rewardGold="+rewardGold+", rewardOil="+rewardOil+"]";

@@ -29,7 +29,7 @@ public class WebSocketChannelInitializer extends ChannelInitializer<SocketChanne
 		pipeline.addLast("decoder", new HttpServerCodec());
 		pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
 		pipeline.addLast("chunkWrite", new ChunkedWriteHandler());
-		pipeline.addLast("uriCheck", new HttpRequestHandler("/apis/reqWrapper"));
+		pipeline.addLast("uriCheck", new FirstHttpRequestHandler("/apis/reqWrapper"));
 		pipeline.addLast("handshake", new WebSocketServerProtocolHandler("")); // websocket的handler部分定义的，它会自己处理握手等操作
 		pipeline.addLast("handler", new WebSocketHandler());
 	}

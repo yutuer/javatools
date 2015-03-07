@@ -11,11 +11,11 @@ import io.netty.handler.codec.http.HttpVersion;
 /**
  * Created by Administrator on 2015/3/3.
  */
-public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
+public class FirstHttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
 	private final String wsUri;
 
-	public HttpRequestHandler(String wsUri) {
+	public FirstHttpRequestHandler(String wsUri) {
 		this.wsUri = wsUri;
 	}
 

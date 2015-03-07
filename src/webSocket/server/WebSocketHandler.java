@@ -8,6 +8,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import org.apache.log4j.Logger;
 
+import spring.SpringContextUtil;
+import spring.UserService;
+
 /**
  * Created by Administrator on 2015/3/2.
  */
@@ -18,7 +21,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 		// 握手完成
 		if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
 			// 移除HTTP请求处理器
-			ctx.pipeline().remove(HttpRequestHandler.class);
+			ctx.pipeline().remove(FirstHttpRequestHandler.class);
 		} else {
 			super.userEventTriggered(ctx, evt);
 		}
@@ -50,14 +53,18 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 
 	@Override
 	protected void channelRead0(final ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
-		ByteBuf buf = frame.content(); // 真正的数据是放在buf里面的
-
-		if (buf.isReadable()) {
-			byte[] contentByte = new byte[buf.readableBytes()];
-			buf.readBytes(contentByte);
-		}
+//		ByteBuf buf = frame.content(); // 真正的数据是放在buf里面的
+//		if (buf.isReadable()) {
+//			byte[] contentByte = new byte[buf.readableBytes()];
+//			buf.readBytes(contentByte);
+//		}
+		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
+		long beginTime = System.nanoTime();
+		userService.testSpeed(100000);
+		long endTime = System.nanoTime();
+		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
+		ctx.writeAndFlush(1);
 	}
-	
 
 	@Override
 	public boolean acceptInboundMessage(Object msg) throws Exception {
@@ -67,6 +74,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		super.channelReadComplete(ctx);
+		ctx.flush();
 	}
 
 	@Override

@@ -15,4 +15,8 @@ public class UserService {
 			userDao.getUser(i);
 		}
 	}
+	
+	public void testPipeline(){
+		userDao.pipelineSample();
+	}
 }

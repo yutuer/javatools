@@ -33,11 +33,11 @@
 		<property name="usePool" value="true"></property>
 	</bean>
 
-	<bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	<bean id="jedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory"></property>
-		<property name="keySerializer">
+		<property name="valueSerializer">
 			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+				class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 		</property>
 		<property name="enableTransactionSupport" value="false"></property>
 	</bean>

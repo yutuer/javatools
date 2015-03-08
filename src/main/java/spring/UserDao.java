@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -47,14 +48,14 @@ public class UserDao {
 			@Override
 			public List<Object> doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.openPipeline();
-				connection.incr(rawKey);
-				connection.incr(rawKey);
+				StringRedisConnection src = (StringRedisConnection) connection;
+				src.get("User:1");
+				src.get("User:2");
 				return connection.closePipeline();
 			}
-
 		};
-		List<Object> results = (List<Object>) redisTemplate.execute(pipelineCallback);
-		for (Object item : results) {
+		List<User> results = (List<User>) redisTemplate.execute(pipelineCallback);
+		for (User item : results) {
 			System.out.println(item.toString());
 		}
 	}

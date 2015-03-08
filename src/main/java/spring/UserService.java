@@ -9,14 +9,18 @@ public class UserService {
 		}
 	}
 
+	public User getUser(final long id) {
+		return userDao.getUser(id);
+	}
+
 	public void testSpeed(int count) {
 		for (int i = 0; i < count; i++) {
 			userDao.addRandomUser();
 			userDao.getUser(i);
 		}
 	}
-	
-	public void testPipeline(){
+
+	public void testPipeline() {
 		userDao.pipelineSample();
 	}
 }

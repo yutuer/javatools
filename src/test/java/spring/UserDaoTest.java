@@ -7,20 +7,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class UserDaoTest {
 	private ApplicationContext app;
-	private UserDao userDao;
+	private UserService userService;
 
 	@Before
 	public void before() throws Exception {
 		app = new ClassPathXmlApplicationContext("Application.xml");
-		userDao = (UserDao) app.getBean("UserDao");
+		userService = (UserService) app.getBean("UserService");
+	}
+
+	@Test
+	public void testSpeed() {
+		userService.testSpeed(10);
 	}
 
 	@Test
 	public void testAdd() {
 		User u = new User("1", 2);
-		userDao.addUser(u);
+		userService.addUser(u);
 
-		User user = userDao.getUser(u.getId());
+		User user = userService.getUser(u.getId());
 		assert user.getAge() == u.getAge();
 	}
 }

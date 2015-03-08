@@ -23,4 +23,8 @@ public class UserService {
 	public void testPipeline() {
 		userDao.pipelineSample();
 	}
+
+	public void normalRead() {
+		userDao.normalRead();
+	}
 }

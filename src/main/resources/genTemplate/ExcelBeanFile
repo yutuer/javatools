@@ -1,0 +1,29 @@
+package parseExcel.bean;
+
+public class %cname%{
+	%field_def%
+
+	public %cname%(%construct_def%){
+		%construct_assign%
+	}
+
+	public %cname%(%construct_strDef%){
+		this(%construct_strAssign%);
+	}
+	
+	%get_method%
+	
+	%set_method%
+	
+	public String buildAddSql() {
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("%insert_sql%%field_Sql%)");
+		return sqlBuffer.toString();
+	}
+	
+	@Override
+	public String toString() {
+		return "%cname%[%toString%]";
+	}
+		
+}

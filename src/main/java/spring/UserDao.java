@@ -26,7 +26,7 @@ public class UserDao {
 		redisTemplate.execute(sessionCallback_write);
 	}
 
-	public void getUser(final long id) {
+	public User getUser(final long id) {
 		SessionCallback<User> sessionCallback_read = new SessionCallback<User>() {
 			@Override
 			public User execute(RedisOperations operations) throws DataAccessException {
@@ -37,6 +37,7 @@ public class UserDao {
 			}
 		};
 		User u = (User) redisTemplate.execute(sessionCallback_read);
+		return u;
 	}
 
 	public void pipelineSample2() {
@@ -57,7 +58,7 @@ public class UserDao {
 			System.out.println(item.toString());
 		}
 	}
-	
+
 	public void pipelineSample() {
 		final byte[] rawKey = redisTemplate.getKeySerializer().serialize("user_total");
 		// pipeline

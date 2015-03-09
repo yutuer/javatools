@@ -3,6 +3,8 @@ package parseExcel.bean;
 public class %cname%{
 	%field_def%
 
+	public %cname%(){}
+
 	public %cname%(%construct_def%){
 		%construct_assign%
 	}

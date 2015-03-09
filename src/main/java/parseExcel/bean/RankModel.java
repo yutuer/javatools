@@ -15,6 +15,8 @@ public class RankModel{
 	private Integer rewardOil;
 
 
+	public RankModel(){}
+
 	public RankModel(String name,String type,Integer exp,String icon,Integer rewardGold,Integer rewardOil){
 			this.name=name;
 	this.type=type;

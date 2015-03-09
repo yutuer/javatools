@@ -1,9 +1,7 @@
 package parseExcel.bean;
 
 public class ExploreModel{
-		//id
-	private Integer id;
-	//探索舰等级/区域
+		//探索舰等级/区域
 	private Integer section;
 	//1级
 	private Integer lv1;
@@ -35,9 +33,10 @@ public class ExploreModel{
 	private Integer diamond;
 
 
-	public ExploreModel(Integer id,Integer section,Integer lv1,Integer lv2,Integer lv3,Integer lv4,Integer lv5,Integer lv6,Integer lv7,Integer lv8,Integer lv9,Integer lv10,Integer gold,Integer oil,Integer newOil,Integer diamond){
-			this.id=id;
-	this.section=section;
+	public ExploreModel(){}
+
+	public ExploreModel(Integer section,Integer lv1,Integer lv2,Integer lv3,Integer lv4,Integer lv5,Integer lv6,Integer lv7,Integer lv8,Integer lv9,Integer lv10,Integer gold,Integer oil,Integer newOil,Integer diamond){
+			this.section=section;
 	this.lv1=lv1;
 	this.lv2=lv2;
 	this.lv3=lv3;
@@ -55,14 +54,11 @@ public class ExploreModel{
 
 	}
 
-	public ExploreModel(String id,String section,String lv1,String lv2,String lv3,String lv4,String lv5,String lv6,String lv7,String lv8,String lv9,String lv10,String gold,String oil,String newOil,String diamond){
-		this(Integer.parseInt(id),Integer.parseInt(section),Integer.parseInt(lv1),Integer.parseInt(lv2),Integer.parseInt(lv3),Integer.parseInt(lv4),Integer.parseInt(lv5),Integer.parseInt(lv6),Integer.parseInt(lv7),Integer.parseInt(lv8),Integer.parseInt(lv9),Integer.parseInt(lv10),Integer.parseInt(gold),Integer.parseInt(oil),Integer.parseInt(newOil),Integer.parseInt(diamond));
+	public ExploreModel(String section,String lv1,String lv2,String lv3,String lv4,String lv5,String lv6,String lv7,String lv8,String lv9,String lv10,String gold,String oil,String newOil,String diamond){
+		this(Integer.parseInt(section),Integer.parseInt(lv1),Integer.parseInt(lv2),Integer.parseInt(lv3),Integer.parseInt(lv4),Integer.parseInt(lv5),Integer.parseInt(lv6),Integer.parseInt(lv7),Integer.parseInt(lv8),Integer.parseInt(lv9),Integer.parseInt(lv10),Integer.parseInt(gold),Integer.parseInt(oil),Integer.parseInt(newOil),Integer.parseInt(diamond));
 	}
 	
-	public Integer getId(){
- 	return id;
-}
-public Integer getSection(){
+	public Integer getSection(){
  	return section;
 }
 public Integer getLv1(){
@@ -109,10 +105,7 @@ public Integer getDiamond(){
 }
 
 	
-	public void setId(Integer id){
- 	this.id=id;
-}
-public void setSection(Integer section){
+	public void setSection(Integer section){
  	this.section=section;
 }
 public void setLv1(Integer lv1){
@@ -161,13 +154,13 @@ public void setDiamond(Integer diamond){
 	
 	public String buildAddSql() {
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("insert into `pureland`.`explore_model`(`id`,`section`,`lv1`,`lv2`,`lv3`,`lv4`,`lv5`,`lv6`,`lv7`,`lv8`,`lv9`,`lv10`,`gold`,`oil`,`new_oil`,`diamond`) values(").append(this.getId()).append(",").append(this.getSection()).append(",").append(this.getLv1()).append(",").append(this.getLv2()).append(",").append(this.getLv3()).append(",").append(this.getLv4()).append(",").append(this.getLv5()).append(",").append(this.getLv6()).append(",").append(this.getLv7()).append(",").append(this.getLv8()).append(",").append(this.getLv9()).append(",").append(this.getLv10()).append(",").append(this.getGold()).append(",").append(this.getOil()).append(",").append(this.getNewOil()).append(",").append(this.getDiamond()).append(")");
+		sqlBuffer.append("insert into `pureland`.`explore_model`(`section`,`lv1`,`lv2`,`lv3`,`lv4`,`lv5`,`lv6`,`lv7`,`lv8`,`lv9`,`lv10`,`gold`,`oil`,`new_oil`,`diamond`) values(").append(this.getSection()).append(",").append(this.getLv1()).append(",").append(this.getLv2()).append(",").append(this.getLv3()).append(",").append(this.getLv4()).append(",").append(this.getLv5()).append(",").append(this.getLv6()).append(",").append(this.getLv7()).append(",").append(this.getLv8()).append(",").append(this.getLv9()).append(",").append(this.getLv10()).append(",").append(this.getGold()).append(",").append(this.getOil()).append(",").append(this.getNewOil()).append(",").append(this.getDiamond()).append(")");
 		return sqlBuffer.toString();
 	}
 	
 	@Override
 	public String toString() {
-		return "ExploreModel[id="+id+", section="+section+", lv1="+lv1+", lv2="+lv2+", lv3="+lv3+", lv4="+lv4+", lv5="+lv5+", lv6="+lv6+", lv7="+lv7+", lv8="+lv8+", lv9="+lv9+", lv10="+lv10+", gold="+gold+", oil="+oil+", newOil="+newOil+", diamond="+diamond+"]";
+		return "ExploreModel[section="+section+", lv1="+lv1+", lv2="+lv2+", lv3="+lv3+", lv4="+lv4+", lv5="+lv5+", lv6="+lv6+", lv7="+lv7+", lv8="+lv8+", lv9="+lv9+", lv10="+lv10+", gold="+gold+", oil="+oil+", newOil="+newOil+", diamond="+diamond+"]";
 	}
 		
 }

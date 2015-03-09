@@ -17,7 +17,7 @@ public class ExcelGenBean {
 	}
 
 	public static void genBeans() {
-		String path = "resources/excels";
+		String path = "src/main/resources/excels";
 		String path2 = "excels";
 		File dir = new File(path);
 		if (dir.isDirectory()) {
@@ -35,7 +35,7 @@ public class ExcelGenBean {
 		FileWriter fw = null;
 		try {
 			String p = System.getProperty("user.dir");
-			final String writePath = p.replaceAll("\\\\", "/") + filePath + ".java";
+			final String writePath = p.replaceAll("\\\\", "/") + "/" + filePath + ".java";
 			File writeFile = new File(writePath);
 			fw = new FileWriter(writeFile);
 			fw.write(content);
@@ -53,7 +53,7 @@ public class ExcelGenBean {
 	}
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
-		final String templateString = MyUtil.getFileContent("resources/genTemplate/ExcelBeanFile");
+		final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
 		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
 			final String cname = entry.getKey();
@@ -170,7 +170,7 @@ public class ExcelGenBean {
 				}
 			};
 
-			writeFile("/src/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
+			writeFile("src/main/java/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
 		}
 	}
 }

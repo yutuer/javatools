@@ -1,0 +1,14 @@
+package parseExcel.enums;
+
+public enum %cname% {
+	%fields%
+	
+	public static %cname% get%cname%ById(int index) {
+		return %cname%.values()[index];
+	}
+	
+	public static %cname% get%cname%ByName(String name){
+		return %cname%.valueOf(name);
+	}
+
+}

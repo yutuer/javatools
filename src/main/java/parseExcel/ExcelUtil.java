@@ -9,11 +9,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -28,14 +29,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import util.MyUtil;
+
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * excel辅助工具类
  * 
- * @author 王烁
- * @date 2012-11-14
- * @version 1.0
  */
 public class ExcelUtil {
 
@@ -50,25 +51,94 @@ public class ExcelUtil {
 			}
 			assert heads.size() == ll.size();
 			Constructor<T> con = c.getConstructor(ll.toArray(new Class[0]));
+
+			A<T> command = new A<T>();
 			for (List<Object> list : lists) {
 				T t = con.newInstance(list.toArray());
 				objs.add(t);
+				command.deal(t);
 			}
+			command.create();
 			return objs;
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	interface Command<T> {
+		void deal(T t);
+	}
+
+	interface Create {
+		void create();
+	}
+
+	private static class A<T> implements Command<T>, Create {
+		private Set<String> subTypeSet = Sets.newHashSet();
+		private Set<String> raceTypeSet = Sets.newHashSet();
+		private Set<String> entityTypeSet = Sets.newHashSet();
+		private Set<String> resourceTypeSet = Sets.newHashSet();
+
+		private static final String Path = "src/main/java/parseExcel/enums";
+		private String dir;
+
+		private void createEnumFile(Set<String> set, String path) throws Exception {
+			File typeFile = new File(dir + path);
+			if (!typeFile.exists()) {
+				typeFile.createNewFile();
+			}
+			List<String> list = Lists.newArrayList();
+			for (String s : set) {
+				
+			}
+		}
+
+		@Override
+		public void create() {
+			try {
+				final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
+				File file = new File(Path);
+				dir = file.getAbsolutePath();
+
+				createEnumFile(subTypeSet, "/SubServerTypeEnum.java");
+				createEnumFile(raceTypeSet, "/RaceServerTypeEnum.java");
+				createEnumFile(entityTypeSet, "/EntityServerTypeEnum.java");
+				createEnumFile(resourceTypeSet, "/ResourceServerTypeEnum.java");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void deal(T t) {
+			if (t.getClass().getSimpleName().equals("EntityModel")) {
+				Field subTypeField;
+				try {
+					subTypeField = t.getClass().getDeclaredField("subType");
+					subTypeField.setAccessible(true);
+					subTypeSet.add((String) (subTypeField.get(t)));
+
+					Field raceTypeField = t.getClass().getDeclaredField("raceType");
+					raceTypeField.setAccessible(true);
+					raceTypeSet.add((String) (raceTypeField.get(t)));
+
+					Field entityTypeField = t.getClass().getDeclaredField("entityType");
+					entityTypeField.setAccessible(true);
+					entityTypeSet.add((String) (entityTypeField.get(t)));
+
+					Field costResourceTypeField = t.getClass().getDeclaredField("costResourceType");
+					costResourceTypeField.setAccessible(true);
+					String costResourceValue = (String) (costResourceTypeField.get(t));
+					if (!costResourceValue.equals("Number")) {
+						resourceTypeSet.add(costResourceValue);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 	/**

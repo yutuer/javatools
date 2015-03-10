@@ -13,10 +13,9 @@ public class UserService {
 		return userDao.getUser(id);
 	}
 
-	public void testSpeed(int count) {
+	public void addUserNoTranction(int count) {
 		for (int i = 0; i < count; i++) {
-			userDao.addRandomUser();
-			userDao.getUser(i);
+			userDao.addUserNoTranction();
 		}
 	}
 
@@ -26,5 +25,9 @@ public class UserService {
 
 	public void normalRead() {
 		userDao.normalRead();
+	}
+
+	public void addUserInTranction(int count) {
+		userDao.addUserInTranction(count);
 	}
 }

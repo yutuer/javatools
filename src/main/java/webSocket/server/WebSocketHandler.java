@@ -60,7 +60,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 //		}
 		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
 		long beginTime = System.nanoTime();
-		userService.testSpeed(100000);
+		userService.addUserNoTranction(100000);
 		long endTime = System.nanoTime();
 		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
 		ctx.writeAndFlush(1);

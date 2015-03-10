@@ -56,14 +56,13 @@ public class UserDao {
 		};
 		List<Object> results = (List<Object>) redisTemplate.executePipelined(pipelineCallback);
 		for (Object item : results) {
-			if(item instanceof User){
+			if (item instanceof User) {
 				User u = (User) item;
-				System.out.println(u.getAge());
 			}
 		}
 	}
 
-	public void addRandomUser() {
+	public void addUserNoTranction() {
 		User u = new User("11", 100);
 		addUser(u);
 	}
@@ -72,6 +71,23 @@ public class UserDao {
 		for (int i = 0; i < UserDaoTest.COUNT; i++) {
 			User u = getUser(i);
 		}
+	}
+
+	public void addUserInTranction(final int count) {
+		SessionCallback<List<User>> sessionCallback_write = new SessionCallback<List<User>>() {
+			@Override
+			public List<User> execute(RedisOperations operations) throws DataAccessException {
+				operations.multi();
+				for (int i = 0; i < count; i++) {
+					User user = new User("11", 10);
+					String key = "user:" + user.getId();
+					ValueOperations<String, User> oper = operations.opsForValue();
+					oper.set(key, user);
+				}
+				return operations.exec();
+			}
+		};
+		redisTemplate.execute(sessionCallback_write);
 	}
 
 }

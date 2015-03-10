@@ -1,7 +1,7 @@
 package parseExcel.bean;
 
 public class EntityModel{
-		//baseId
+		//ID
 	private Integer baseId;
 	//升级后ID
 	private Integer upgradeId;

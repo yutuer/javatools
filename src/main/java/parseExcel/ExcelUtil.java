@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -124,6 +125,10 @@ public class ExcelUtil {
 					bean.desc = GPoiUtils.getStringValue(eval, row0.getCell(k));
 					bean.title = GPoiUtils.getStringValue(eval, row1.getCell(k));
 					bean.type = GPoiUtils.getStringValue(eval, row2.getCell(k));
+					if (StringUtils.isEmpty(bean.desc) || StringUtils.isEmpty(bean.desc) || StringUtils.isEmpty(bean.desc)) {
+						log.error(String.format("检查%d列, 有为''的cell\n", k + 1));
+						continue;
+					}
 					list.add(bean);
 				}
 				map.put(sheet.getSheetName(), list);

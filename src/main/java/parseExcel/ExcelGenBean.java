@@ -129,6 +129,9 @@ public class ExcelGenBean {
 				}
 
 				private String createGetMethod(String title) {
+					if (title.length() == 0) {
+						System.out.println();
+					}
 					return "get" + MyUtil.firstChar2Upper(title);
 				}
 

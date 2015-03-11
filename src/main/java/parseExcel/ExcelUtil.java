@@ -132,9 +132,8 @@ public class ExcelUtil {
 					Field costResourceTypeField = t.getClass().getDeclaredField("costResourceType");
 					costResourceTypeField.setAccessible(true);
 					String costResourceValue = (String) (costResourceTypeField.get(t));
-					if (!costResourceValue.equals("Number")) {
-						resourceTypeSet.add(costResourceValue);
-					}
+					resourceTypeSet.add(costResourceValue);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

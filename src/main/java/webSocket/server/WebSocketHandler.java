@@ -46,24 +46,13 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 	}
 
 	@Override
-	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-		Logger.getRootLogger().info("channelUnregistered:" + ctx.name());
-		super.channelUnregistered(ctx);
+	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+		super.handlerAdded(ctx);
 	}
 
 	@Override
-	protected void channelRead0(final ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
-//		ByteBuf buf = frame.content(); // 真正的数据是放在buf里面的
-//		if (buf.isReadable()) {
-//			byte[] contentByte = new byte[buf.readableBytes()];
-//			buf.readBytes(contentByte);
-//		}
-		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
-		long beginTime = System.nanoTime();
-		userService.addUserNoTranction(100000);
-		long endTime = System.nanoTime();
-		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
-		ctx.writeAndFlush(1);
+	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+		super.handlerRemoved(ctx);
 	}
 
 	@Override
@@ -81,6 +70,16 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		cause.printStackTrace();
 		ctx.close();
+	}
+
+	@Override
+	protected void messageReceived(final ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
+		long beginTime = System.nanoTime();
+		userService.addUserNoTranction(100000);
+		long endTime = System.nanoTime();
+		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
+		ctx.writeAndFlush(1);
 	}
 
 }

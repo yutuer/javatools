@@ -31,27 +31,6 @@ public class ExcelGenBean {
 		}
 	}
 
-	private static void writeFile(String filePath, String content) {
-		FileWriter fw = null;
-		try {
-			String p = System.getProperty("user.dir");
-			final String writePath = p.replaceAll("\\\\", "/") + "/" + filePath + ".java";
-			File writeFile = new File(writePath);
-			fw = new FileWriter(writeFile);
-			fw.write(content);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fw != null) {
-					fw.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
 		final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
 		final String field = "private";
@@ -172,8 +151,7 @@ public class ExcelGenBean {
 					}
 				}
 			};
-
-			writeFile("src/main/java/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
+			FileUtil.writeFile("src/main/java/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
 		}
 	}
 }

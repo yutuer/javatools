@@ -80,31 +80,29 @@ public class ExcelUtil {
 		private Set<String> entityTypeSet = Sets.newHashSet();
 		private Set<String> resourceTypeSet = Sets.newHashSet();
 
-		private static final String Path = "src/main/java/parseExcel/enums";
-		private String dir;
+		private static final String Path = "src/main/java/parseExcel/enums/";
+		private final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/EnumBeanFile");
 
-		private void createEnumFile(Set<String> set, String path) throws Exception {
-			File typeFile = new File(dir + path);
-			if (!typeFile.exists()) {
-				typeFile.createNewFile();
-			}
+		private void createEnumFile(Set<String> set, String cname) throws Exception {
 			List<String> list = Lists.newArrayList();
+			String allHaveString = "None";
+			set.remove(allHaveString);
+			list.add(allHaveString);
 			for (String s : set) {
-				
+				list.add(s);
 			}
+			String fieldStr = StringUtils.join(list, ",");
+			String content = templateString.replaceAll("%cname%", cname).replaceAll("%fields%", fieldStr);
+			FileUtil.writeFile(Path + cname, content);
 		}
 
 		@Override
 		public void create() {
 			try {
-				final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
-				File file = new File(Path);
-				dir = file.getAbsolutePath();
-
-				createEnumFile(subTypeSet, "/SubServerTypeEnum.java");
-				createEnumFile(raceTypeSet, "/RaceServerTypeEnum.java");
-				createEnumFile(entityTypeSet, "/EntityServerTypeEnum.java");
-				createEnumFile(resourceTypeSet, "/ResourceServerTypeEnum.java");
+				createEnumFile(subTypeSet, "SubServerTypeEnum");
+				createEnumFile(raceTypeSet, "RaceServerTypeEnum");
+				createEnumFile(entityTypeSet, "EntityServerTypeEnum");
+				createEnumFile(resourceTypeSet, "ResourceServerTypeEnum");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

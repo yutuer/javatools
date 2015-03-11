@@ -1,5 +1,6 @@
 package spring;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	public static final int COUNT = 10000;
+	public static final int COUNT = 200000;
 	private ApplicationContext app;
 	private UserService userService;
 
@@ -19,32 +20,43 @@ public class UserDaoTest {
 		userService = (UserService) app.getBean("UserService");
 	}
 
-	@Test
-	public void test_0_addAndReadOnce() {
-		User u = new User("11", 2);
-		userService.addUser(u);
+	// @Test
+	// public void test_0_addAndReadOnce() {
+	// User u = new User("11", 2);
+	// userService.addUser(u);
+	//
+	// User user = userService.getUser(u.getId());
+	// assert user.getAge() == u.getAge();
+	// }
+	//
+	// @Test
+	// public void test_1_addUserNoTranction() {
+	// userService.addUserNoTranction(COUNT);
+	// }
+	//
+	// @Test
+	// public void test_2_AddUserInTranction() {
+	// userService.addUserInTranction(COUNT);
+	// }
+	//
+	// @Test
+	// public void test_3_PipelineRead() {
+	// userService.testPipeline();
+	// }
+	//
+	// @Test
+	// public void test_4_normalRead() {
+	// userService.normalRead();
+	// }
 
-		User user = userService.getUser(u.getId());
-		assert user.getAge() == u.getAge();
+	@Test
+	public void test_5_addGuildName() {
+		userService.addGuildName();
 	}
 
 	@Test
-	public void test_1_addUserNoTranction() {
-		userService.addUserNoTranction(COUNT);
-	}
-
-	@Test
-	public void test_2_AddUserInTranction() {
-		userService.addUserInTranction(COUNT);
-	}
-
-	@Test
-	public void test_3_PipelineRead() {
-		userService.testPipeline();
-	}
-
-	@Test
-	public void test_4_normalRead() {
-		userService.normalRead();
+	public void test_6_findGuildName() {
+		boolean isFind = userService.findGuildByName(String.valueOf(COUNT));
+		Assert.assertTrue(!isFind);
 	}
 }

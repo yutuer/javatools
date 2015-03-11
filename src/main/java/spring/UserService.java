@@ -30,4 +30,12 @@ public class UserService {
 	public void addUserInTranction(int count) {
 		userDao.addUserInTranction(count);
 	}
+
+	public void addGuildName() {
+		userDao.addGuildName();
+	}
+
+	public boolean findGuildByName(String guildName) {
+		return userDao.findGuildByName(guildName);
+	}
 }

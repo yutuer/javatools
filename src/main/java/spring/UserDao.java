@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -78,7 +79,7 @@ public class UserDao {
 			@Override
 			public List<User> execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
-				for (int i = 0; i < count; i++) {
+				for (int i = 0; i < UserDaoTest.COUNT; i++) {
 					User user = new User("11", 10);
 					String key = "user:" + user.getId();
 					ValueOperations<String, User> oper = operations.opsForValue();
@@ -90,4 +91,31 @@ public class UserDao {
 		redisTemplate.execute(sessionCallback_write);
 	}
 
+	public void addGuildName() {
+		SessionCallback<List<String>> sessionCallback_write = new SessionCallback<List<String>>() {
+			@Override
+			public List<String> execute(RedisOperations operations) throws DataAccessException {
+				operations.multi();
+				for (int i = 0; i < UserDaoTest.COUNT; i++) {
+					String key = "guildName";
+					SetOperations<String, String> oper = operations.opsForSet();
+					oper.add(key, "abcdefghijklmn" + String.valueOf(i) + "abcdefghijklmn");
+				}
+				return operations.exec();
+			}
+		};
+		redisTemplate.execute(sessionCallback_write);
+	}
+
+	public boolean findGuildByName(final String guildName) {
+		SessionCallback<Boolean> sessionCallBack = new SessionCallback<Boolean>() {
+			@Override
+			public Boolean execute(RedisOperations operations) throws DataAccessException {
+				String key = "guildName";
+				SetOperations<String, String> oper = operations.opsForSet();
+				return oper.isMember(key, "abcdefghijklmn" + guildName + "abcdefghijklmn");
+			}
+		};
+		return redisTemplate.execute(sessionCallBack);
+	}
 }

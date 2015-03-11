@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import parseExcel.bean.RankModel;
-
 public class ExcelReadData {
 
 	public static void main(String[] args) {
@@ -21,7 +19,7 @@ public class ExcelReadData {
 		try {
 			for (Entry<String, List<List<Object>>> entry : map_data.entrySet()) {
 				String cname = entry.getKey();
-				Class c = (Class<RankModel>) Class.forName("parseExcel.bean." + cname);
+				Class c = Class.forName("parseExcel.bean." + cname);
 				List l = ExcelUtil.transferObjFromData(entry.getValue(), c, map_head.get(cname));
 				System.out.println(l);
 			}

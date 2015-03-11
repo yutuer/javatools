@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 public class ExcelReadData {
 
 	public static void main(String[] args) {
+		ExcelGenBean.genBeans();
 		String fileName = "src/main/resources/excels/EntityModel.xlsx";
 		File f = new File(fileName);
 		readData(f.getAbsolutePath());

@@ -99,6 +99,10 @@ public class ExcelUtil {
 		@Override
 		public void create() {
 			try {
+				File f = new File(Path);
+				if (!f.exists()) {
+					f.mkdirs();
+				}
 				createEnumFile(subTypeSet, "SubServerTypeEnum");
 				createEnumFile(raceTypeSet, "RaceServerTypeEnum");
 				createEnumFile(entityTypeSet, "EntityServerTypeEnum");

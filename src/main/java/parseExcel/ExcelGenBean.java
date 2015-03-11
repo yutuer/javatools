@@ -32,6 +32,12 @@ public class ExcelGenBean {
 	}
 
 	private static void createDataBeanFile(Map<String, List<ExcelHead>> map_head) {
+		final String path = "src/main/java/parseExcel/bean/";
+		File f = new File(path);
+		if (!f.exists()) {
+			f.mkdirs();
+		}
+		
 		final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
 		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
@@ -151,6 +157,7 @@ public class ExcelGenBean {
 					}
 				}
 			};
+
 			FileUtil.writeFile("src/main/java/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
 		}
 	}

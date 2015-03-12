@@ -2,6 +2,7 @@ package spring_redis;
 
 import java.util.List;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.StringRedisConnection;
@@ -11,6 +12,9 @@ import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
 
 import spring.UserDaoTest;
 
@@ -119,5 +123,16 @@ public class UserDao {
 			}
 		};
 		return redisTemplate.execute(sessionCallBack);
+	}
+
+	public RedisScript<Boolean> script() {
+		DefaultRedisScript<Boolean> redisScript = new DefaultRedisScript<Boolean>();
+		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("META-INF/scripts/checkandset.lua")));
+		redisScript.setResultType(Boolean.class);
+		return redisScript;
+	}
+
+	public void execScript() {
+
 	}
 }

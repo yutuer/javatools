@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,14 +77,14 @@ public class ExcelUtil {
 
 	private static class A<T> implements Command<T>, Create {
 		private Set<String> subTypeSet = Sets.newHashSet();
-		private Set<String> raceTypeSet = Sets.newHashSet();
+		private List<String> raceTypeList = Lists.newArrayList();
 		private Set<String> entityTypeSet = Sets.newHashSet();
 		private Set<String> resourceTypeSet = Sets.newHashSet();
 
 		private static final String Path = "src/main/java/parseExcel/enums/";
 		private final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/EnumBeanFile");
 
-		private void createEnumFile(Set<String> set, String cname) throws Exception {
+		private void createEnumFile(Collection<String> set, String cname) throws Exception {
 			List<String> list = Lists.newArrayList();
 			String allHaveString = "None";
 			set.remove(allHaveString);
@@ -104,7 +105,7 @@ public class ExcelUtil {
 					f.mkdirs();
 				}
 				createEnumFile(subTypeSet, "SubServerTypeEnum");
-				createEnumFile(raceTypeSet, "RaceServerTypeEnum");
+				createEnumFile(raceTypeList, "RaceServerTypeEnum");
 				createEnumFile(entityTypeSet, "EntityServerTypeEnum");
 				createEnumFile(resourceTypeSet, "ResourceServerTypeEnum");
 			} catch (Exception e) {
@@ -123,7 +124,10 @@ public class ExcelUtil {
 
 					Field raceTypeField = t.getClass().getDeclaredField("raceType");
 					raceTypeField.setAccessible(true);
-					raceTypeSet.add((String) (raceTypeField.get(t)));
+					String s = (String) (raceTypeField.get(t));
+					if (!raceTypeList.contains(s)) {
+						raceTypeList.add(s);
+					}
 
 					Field entityTypeField = t.getClass().getDeclaredField("entityType");
 					entityTypeField.setAccessible(true);
@@ -133,7 +137,7 @@ public class ExcelUtil {
 					costResourceTypeField.setAccessible(true);
 					String costResourceValue = (String) (costResourceTypeField.get(t));
 					resourceTypeSet.add(costResourceValue);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

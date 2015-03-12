@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 public class UserService {
 	private static UserDao userDao = SpringContextUtil.<UserDao> getBean(UserDao.class.getSimpleName());

@@ -8,8 +8,8 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import org.apache.log4j.Logger;
 
-import spring.SpringContextUtil;
-import spring.UserService;
+import spring_redis.SpringContextUtil;
+import spring_redis.UserService;
 
 /**
  * Created by Administrator on 2015/3/2.

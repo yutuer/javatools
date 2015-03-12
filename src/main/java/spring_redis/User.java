@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 import java.io.Externalizable;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+
+import spring.UserDaoTest;
 
 public class UserDao {
 	private StringRedisTemplate redisTemplate = (StringRedisTemplate) SpringContextUtil.getBean("jedisTemplate");
@@ -96,7 +98,7 @@ public class UserDao {
 			@Override
 			public List<String> execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
-				for (int i = 0; i < UserDaoTest.COUNT; i++) {
+				for (int i = 0; i < UserDaoTest.GUILDCOUNT; i++) {
 					String key = "guildName";
 					SetOperations<String, String> oper = operations.opsForSet();
 					oper.add(key, "abcdefghijklmn" + String.valueOf(i) + "abcdefghijklmn");

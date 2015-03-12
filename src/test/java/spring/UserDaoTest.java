@@ -8,9 +8,12 @@ import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import spring_redis.UserService;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
 	public static final int COUNT = 200000;
+	public static final int GUILDCOUNT = 200000;
 	private ApplicationContext app;
 	private UserService userService;
 
@@ -56,7 +59,7 @@ public class UserDaoTest {
 
 	@Test
 	public void test_6_findGuildName() {
-		boolean isFind = userService.findGuildByName(String.valueOf(COUNT));
+		boolean isFind = userService.findGuildByName(String.valueOf(GUILDCOUNT));
 		Assert.assertTrue(!isFind);
 	}
 }

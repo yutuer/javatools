@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 import io.netty.handler.codec.marshalling.DefaultMarshallerProvider;
 import io.netty.handler.codec.marshalling.DefaultUnmarshallerProvider;

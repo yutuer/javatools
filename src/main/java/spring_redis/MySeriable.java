@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 import io.netty.handler.codec.marshalling.MarshallingDecoder;
 import io.netty.handler.codec.marshalling.MarshallingEncoder;

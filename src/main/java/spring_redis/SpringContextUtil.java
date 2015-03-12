@@ -1,4 +1,4 @@
-package spring;
+package spring_redis;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

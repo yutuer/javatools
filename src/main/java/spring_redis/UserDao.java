@@ -1,5 +1,6 @@
 package spring_redis;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.core.io.ClassPathResource;
@@ -15,6 +16,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
+
+import com.google.common.collect.Lists;
 
 import spring.UserDaoTest;
 
@@ -125,14 +128,49 @@ public class UserDao {
 		return redisTemplate.execute(sessionCallBack);
 	}
 
-	public RedisScript<Boolean> script() {
-		DefaultRedisScript<Boolean> redisScript = new DefaultRedisScript<Boolean>();
-		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("META-INF/scripts/checkandset.lua")));
-		redisScript.setResultType(Boolean.class);
+	public void addTemp() {
+		SessionCallback<User> sessionCallBack = new SessionCallback<User>() {
+			@Override
+			public User execute(RedisOperations operations) throws DataAccessException {
+				String key1 = "a";
+				String key2 = "b";
+				ValueOperations oper = operations.opsForValue();
+				byte[] b = redisTemplate.getStringSerializer().serialize("12");
+				oper.set(key1, b);
+//				oper.set(key2, "222");
+				return null;
+			}
+		};
+		redisTemplate.execute(sessionCallBack);
+	}
+
+	private RedisScript<Integer> script() {
+		DefaultRedisScript<Integer> redisScript = new DefaultRedisScript<Integer>();
+		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/test2.lua")));
+		redisScript.setResultType(Integer.class);
 		return redisScript;
 	}
 
 	public void execScript() {
+		RedisScript<Integer> redisScript = script();
+		Object o = redisTemplate.execute(redisScript, Lists.newArrayList("a", "b"));
+		System.out.println(o);
+	}
 
+	public void getThenSetInTraction() {
+		SessionCallback<Boolean> sessionCallBack = new SessionCallback<Boolean>() {
+			@Override
+			public Boolean execute(RedisOperations operations) throws DataAccessException {
+				String key = "incr";
+				ValueOperations oper = operations.opsForValue();
+				Long id = oper.increment(key, 1);
+				operations.multi();
+				String key2 = "tmp:" + id;
+				oper.set(key2, "1");
+				operations.exec();
+				return true;
+			}
+		};
+		redisTemplate.execute(sessionCallBack);
 	}
 }

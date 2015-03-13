@@ -38,4 +38,13 @@ public class UserService {
 	public boolean findGuildByName(String guildName) {
 		return userDao.findGuildByName(guildName);
 	}
+
+	public void getThenSetInTraction() {
+		userDao.getThenSetInTraction();
+	}
+
+	public void execScript() {
+		userDao.addTemp();
+		userDao.execScript();
+	}
 }

@@ -71,6 +71,6 @@ public class UserDaoTest {
 
 	@Test
 	public void test_8_execScript() {
-		userService.execScript();
+		userService.execScript(); 
 	}
 }

@@ -212,7 +212,7 @@ public class UserDao {
 		final String SKIP = "SKIP";
 
 		String joinType = SKIP;
-		String clanName = SKIP;
+		String clanName = "ttttttt";
 		String country = SKIP;
 		String clanLevel = SKIP;
 		String fightRate = SKIP;

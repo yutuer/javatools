@@ -10,6 +10,7 @@ local sisMemberCommand = "SISMEMBER"
 local hgetCommand = "HGET"
 
 local keyClanId  = "CLANID"
+local keyClanName = "CLANNAME"
 local keyCountry = "CLANCOUNTRY:"
 local keyFightRate = "CLANFIGHTRATE:"
 local keyJoinType = "ClANJOINTYPE:"
@@ -22,10 +23,12 @@ local clanFightRate
 local clanJoinType
 
 if KEYS[7] ~= SKIP then
-	local isExist = redis.call(sisMemberCommand, keyName2Id, KEYS[7])
-	if isExist then
+	local isExist = redis.call(sisMemberCommand, keyClanName, KEYS[7])
+	if isExist>0 then
 		local a = redis.call(hgetCommand, keyName2Id, KEYS[7])  
 		return {a}
+	else 
+		return {}	
 	end
 end
 
@@ -79,32 +82,34 @@ if isSetMin or isSetMax or isSetLevel or isSetCrown then
 	local rrr  = {}
 	-- 检查成员数
 	for k, v in ipairs(ret) do
+		local isAdd = true
 		if isSetMin or isSetMax then
 			local num = redis.call("get" , "CLAN:" .. v .. ":MemberNum")
 			num = tonumber(num)	
 			if num < lower or num > upper then 
-				break
+				isAdd = false
 			end
 		end
-		if isSetLevel then 
+		if isAdd and isSetLevel then 
 			local level = redis.call("get" , "CLAN:" .. v .. ":ClanLevel")
 			level = tonumber(level)
 			if level < clanLevel then
-				break
+				isAdd = false
 			end
 		end
 		
-		if isSetCrown then
+		if isAdd and isSetCrown then
 			local crown = redis.call("get", "CLAN:" .. v .. ":TotalCrown")
 			crown = tonumber(crown)
 			if crown < needCrown then
 				break 
 			end
 		end
-		
-		rrr[#rrr+1] = v
-		if #rrr >= 50 then 
-			return rrr
+		if isAdd then
+			rrr[#rrr+1] = v
+			if #rrr >= 50 then 
+				return rrr
+			end
 		end
 	end
 	return rrr

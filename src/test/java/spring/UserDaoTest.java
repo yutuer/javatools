@@ -64,13 +64,13 @@ public class UserDaoTest {
 	// Assert.assertTrue(!isFind);
 	// }
 
-	// @Test
-	// public void test_7_a() {
-	// userService.getThenSetInTraction();
-	// }
+//	@Test
+//	public void test_7_a() {
+//		userService.a();
+//	}
 
-	@Test
-	public void test_8_execScript() {
-		userService.execScript(); 
-	}
+	 @Test
+	 public void test_8_execScript() {
+	 userService.execScript();
+	 }
 }

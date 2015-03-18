@@ -44,7 +44,14 @@ public class UserService {
 	}
 
 	public void execScript() {
-		userDao.addTemp();
+//		userDao.addTemp();
 		userDao.execScript();
+	}
+
+	public void a() {
+//		userDao.sessionZAdd();
+//		userDao.sessionZRank();
+		userDao.redisZAdd();
+		userDao.redisZRank();
 	}
 }

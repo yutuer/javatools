@@ -203,14 +203,26 @@ public class UserDao {
 
 	private RedisScript<Integer> script() {
 		DefaultRedisScript<Integer> redisScript = new DefaultRedisScript<Integer>();
-		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/test2.lua")));
+		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/searchClan.lua")));
 		redisScript.setResultType(Integer.class);
 		return redisScript;
 	}
 
 	public void execScript() {
+		final String SKIP = "SKIP";
+
+		String joinType = SKIP;
+		String clanName = SKIP;
+		String country = SKIP;
+		String clanLevel = SKIP;
+		String fightRate = SKIP;
+		String limitCrown = SKIP;
+		String numMinimum = SKIP;
+		String numMaxnium = SKIP;
+
 		RedisScript<Integer> redisScript = script();
-		Object o = strRedisTemplate.execute(redisScript, Lists.newArrayList("a"));
+		Object o = strRedisTemplate.execute(redisScript,
+				Lists.newArrayList(country, fightRate, joinType, numMinimum, numMaxnium, clanLevel, clanName, limitCrown));
 		System.out.println(o);
 	}
 

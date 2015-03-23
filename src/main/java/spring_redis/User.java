@@ -1,9 +1,5 @@
 package spring_redis;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -165,6 +161,5 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", age=" + age + "]";
 	}
-
 
 }

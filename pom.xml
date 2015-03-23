@@ -9,7 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<poi-version>3.9</poi-version>
 		<org.springframework-version>4.1.1.RELEASE</org.springframework-version>
-		<netty-version>5.0.0.Alpha1</netty-version>
+		<netty-version>5.0.0.Alpha2</netty-version>
 		<junit-version>4.12</junit-version>
 	</properties>
 

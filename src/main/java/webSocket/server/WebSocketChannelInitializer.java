@@ -10,9 +10,6 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * Created by qinpeirong on 15-1-28.
- */
 public class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
 
 	// private final DispatcherServlet dispatcherServlet;

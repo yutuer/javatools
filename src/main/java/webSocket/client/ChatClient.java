@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
 import org.java_websocket.WebSocketImpl;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
@@ -155,10 +156,10 @@ public class ChatClient extends JFrame implements ActionListener {
 		String location;
 		if (args.length != 0) {
 			location = args[0];
-			System.out.println("Default server url specified: \'" + location + "\'");
+			Logger.getRootLogger().error("默认Default server url specified: \'" + location + "\'");
 		} else {
 			location = "ws://localhost:8080/apis/reqWrapper";
-			System.out.println("Default server url not specified: defaulting to \'" + location + "\'");
+			Logger.getRootLogger().error("默认Default server url not specified: defaulting to \'" + location + "\'");
 		}
 		new ChatClient(location);
 	}

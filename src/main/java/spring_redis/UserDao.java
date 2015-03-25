@@ -17,11 +17,12 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
-import spring.UserDaoTest;
-
 import com.google.common.collect.Lists;
 
 public class UserDao {
+	public static final int COUNT = 10000;
+	public static final int GUILDCOUNT = 200000;
+
 	private final String testKey = "testKey";
 	private StringRedisTemplate redisTemplate = (StringRedisTemplate) SpringContextUtil.getBean("jedisTemplate");
 	private StringRedisTemplate strRedisTemplate = (StringRedisTemplate) SpringContextUtil.getBean("strRedisTemplate");
@@ -115,7 +116,7 @@ public class UserDao {
 			public Object doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.openPipeline();
 				StringRedisConnection src = (StringRedisConnection) connection;
-				for (int i = 0; i < UserDaoTest.COUNT; i++) {
+				for (int i = 0; i < COUNT; i++) {
 					src.get("user:" + i);
 				}
 				return null;
@@ -135,7 +136,7 @@ public class UserDao {
 	}
 
 	public void normalRead() {
-		for (int i = 0; i < UserDaoTest.COUNT; i++) {
+		for (int i = 0; i < COUNT; i++) {
 			User u = getUser(i);
 		}
 	}
@@ -145,7 +146,7 @@ public class UserDao {
 			@Override
 			public List<User> execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
-				for (int i = 0; i < UserDaoTest.COUNT; i++) {
+				for (int i = 0; i < COUNT; i++) {
 					User user = new User("11", 10);
 					String key = "user:" + user.getId();
 					ValueOperations<String, User> oper = operations.opsForValue();
@@ -162,7 +163,7 @@ public class UserDao {
 			@Override
 			public List<String> execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
-				for (int i = 0; i < UserDaoTest.GUILDCOUNT; i++) {
+				for (int i = 0; i < GUILDCOUNT; i++) {
 					String key = "guildName";
 					SetOperations<String, String> oper = operations.opsForSet();
 					oper.add(key, "abcdefghijklmn" + String.valueOf(i) + "abcdefghijklmn");

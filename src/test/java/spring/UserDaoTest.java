@@ -1,6 +1,5 @@
 package spring;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -8,13 +7,11 @@ import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import spring_redis.User;
 import spring_redis.UserService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	public static final int COUNT = 10000;
-	public static final int GUILDCOUNT = 200000;
+	
 	private ApplicationContext app;
 	private UserService userService;
 
@@ -64,13 +61,13 @@ public class UserDaoTest {
 	// Assert.assertTrue(!isFind);
 	// }
 
-//	@Test
-//	public void test_7_a() {
-//		userService.a();
-//	}
+	// @Test
+	// public void test_7_a() {
+	// userService.a();
+	// }
 
-	 @Test
-	 public void test_8_execScript() {
-	 userService.execScript();
-	 }
+	@Test
+	public void test_8_execScript() {
+		userService.execScript();
+	}
 }

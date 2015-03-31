@@ -11,7 +11,7 @@ import spring_redis.UserService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	
+
 	private ApplicationContext app;
 	private UserService userService;
 
@@ -40,10 +40,10 @@ public class UserDaoTest {
 	// userService.addUserInTranction(COUNT);
 	// }
 	//
-	 @Test
-	 public void test_3_PipelineRead() {
-	 userService.testPipeline();
-	 }
+	@Test
+	public void test_3_PipelineRead() {
+		userService.testPipeline();
+	}
 	//
 	// @Test
 	// public void test_4_normalRead() {
@@ -66,8 +66,8 @@ public class UserDaoTest {
 	// userService.a();
 	// }
 
-//	@Test
-//	public void test_8_execScript() {
-//		userService.execScript();
-//	}
+	// @Test
+	// public void test_8_execScript() {
+	// userService.execScript();
+	// }
 }

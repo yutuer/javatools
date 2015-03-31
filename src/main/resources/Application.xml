@@ -16,10 +16,11 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<bean id="springContextUtil" class="spring_redis.SpringContextUtil" />
+	<context:component-scan base-package="spring_redis"></context:component-scan>
+
+	<!-- <bean id="springContextUtil" class="spring_redis.SpringContextUtil" 
+		/> -->
 
 	<import resource="redis.xml" />
 
-	<bean id="UserDao" class="spring_redis.UserDao" />
-	<bean id="UserService" class="spring_redis.UserService" />
 </beans>

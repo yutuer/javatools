@@ -1,7 +1,12 @@
 package spring_redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserService {
-	private static UserDao userDao = SpringContextUtil.<UserDao> getBean(UserDao.class.getSimpleName());
+	@Autowired
+	private UserDao userDao;
 
 	public void addUser(User... users) {
 		for (User u : users) {
@@ -44,13 +49,13 @@ public class UserService {
 	}
 
 	public void execScript() {
-//		userDao.addTemp();
+		// userDao.addTemp();
 		userDao.execScript();
 	}
 
 	public void a() {
-//		userDao.sessionZAdd();
-//		userDao.sessionZRank();
+		// userDao.sessionZAdd();
+		// userDao.sessionZRank();
 		userDao.redisZAdd();
 		userDao.redisZRank();
 	}

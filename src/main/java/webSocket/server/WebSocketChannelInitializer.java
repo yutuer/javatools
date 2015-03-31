@@ -12,8 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-	// private final DispatcherServlet dispatcherServlet;
-
 	public WebSocketChannelInitializer() {
 		// 初始化spring容器
 		new ClassPathXmlApplicationContext("Application.xml");

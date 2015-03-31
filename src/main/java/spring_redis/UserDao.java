@@ -2,6 +2,8 @@ package spring_redis;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -16,16 +18,20 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
+import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
 
+@Component
 public class UserDao {
 	public static final int COUNT = 10000;
 	public static final int GUILDCOUNT = 200000;
 
 	private final String testKey = "testKey";
-	private StringRedisTemplate redisTemplate = (StringRedisTemplate) SpringContextUtil.getBean("jedisTemplate");
-	private StringRedisTemplate strRedisTemplate = (StringRedisTemplate) SpringContextUtil.getBean("strRedisTemplate");
+	@Qualifier
+	private StringRedisTemplate redisTemplate;
+	@Qualifier
+	private StringRedisTemplate strRedisTemplate;
 
 	public void addUser(final User user) {
 		SessionCallback<User> sessionCallback_write = new SessionCallback<User>() {

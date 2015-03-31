@@ -6,14 +6,14 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import spring_redis.SpringContextUtil;
 import spring_redis.UserService;
 
-/**
- * Created by Administrator on 2015/3/2.
- */
 public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -73,7 +73,6 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 
 	@Override
 	protected void messageReceived(final ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
-		UserService userService = SpringContextUtil.<UserService> getBean(UserService.class.getSimpleName());
 		long beginTime = System.nanoTime();
 		userService.addUserNoTranction(100000);
 		long endTime = System.nanoTime();

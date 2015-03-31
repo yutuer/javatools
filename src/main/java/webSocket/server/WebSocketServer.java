@@ -6,9 +6,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-/**
- * Created by Administrator on 2015/3/2.
- */
 public class WebSocketServer {
 
 	private final int port;

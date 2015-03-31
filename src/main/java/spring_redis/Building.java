@@ -4,11 +4,8 @@ import java.io.Serializable;
 
 public class Building implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -788731626790517902L;
-	
+
 	private Long userId;
 	private Long raceId;
 	private Long lastLoginTime;

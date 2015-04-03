@@ -15,6 +15,7 @@ public class PipeiContainer {
 
 	private Queue<Clan> taskQueue = new LinkedBlockingQueue<Clan>();
 	private AtomicInteger ai = new AtomicInteger();
+	private static final long SleepTime = 2 * MyUtil.SECOND;
 
 	public void clanJoin(Clan c) {
 		taskQueue.offer(c);
@@ -34,7 +35,7 @@ public class PipeiContainer {
 					System.out.println("now:" + taskQueue);
 					List<GeneralBeanTwo<Clan, Clan>> result = findTask();
 					notifyResult(result);
-					Thread.sleep(MyUtil.SECOND);
+					Thread.sleep(SleepTime);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -46,6 +46,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
+import sun.misc.Unsafe;
+
 public class MyUtil {
 
 	public static final long SECOND = 1000L;
@@ -1093,4 +1095,12 @@ public class MyUtil {
 			}
 		}
 	}
+
+	public static Unsafe getUnsafe() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field f = Unsafe.class.getDeclaredField("theUnsafe");
+		f.setAccessible(true);
+		Unsafe unsafe = (Unsafe) f.get(null);
+		return unsafe;
+	}
+
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
@@ -1103,4 +1104,28 @@ public class MyUtil {
 		return unsafe;
 	}
 
+	public static long sizeOf(Object o) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Unsafe u = getUnsafe();
+		HashSet<Field> fields = new HashSet<Field>();
+		Class c = o.getClass();
+		while (c != Object.class) {
+			for (Field f : c.getDeclaredFields()) {
+				if ((f.getModifiers() & Modifier.STATIC) == 0) {
+					fields.add(f);
+				}
+			}
+			c = c.getSuperclass();
+		}
+
+		// get offset
+		long maxSize = 0;
+		for (Field f : fields) {
+			long offset = u.objectFieldOffset(f);
+			if (offset > maxSize) {
+				maxSize = offset;
+			}
+		}
+
+		return ((maxSize / 8) + 1) * 8; // padding
+	}
 }

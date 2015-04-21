@@ -2,7 +2,6 @@ package spring_redis;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.collect.Lists;
 
 @Component
-public class UserDao {
+public class UserDao_redis {
 	public static final int COUNT = 10000;
 	public static final int GUILDCOUNT = 200000;
 

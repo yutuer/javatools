@@ -7,18 +7,18 @@ import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import spring_redis.UserService;
+import spring_redis.UserService_redis;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
 
 	private ApplicationContext app;
-	private UserService userService;
+	private UserService_redis userService;
 
 	@Before
 	public void before() throws Exception {
 		app = new ClassPathXmlApplicationContext("Application.xml");
-		userService = (UserService) app.getBean("UserService");
+		userService = (UserService_redis) app.getBean("UserService");
 	}
 
 	// @Test

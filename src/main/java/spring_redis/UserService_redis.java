@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserService {
+public class UserService_redis {
 	@Autowired
-	private UserDao userDao;
+	private UserDao_redis userDao;
 
 	public void addUser(User... users) {
 		for (User u : users) {

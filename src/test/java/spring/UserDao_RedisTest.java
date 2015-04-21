@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spring_redis.UserService_redis;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UserDaoTest {
+public class UserDao_RedisTest {
 
 	private ApplicationContext app;
 	private UserService_redis userService;

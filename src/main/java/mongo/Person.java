@@ -1,32 +1,44 @@
 package mongo;
 
 public class Person {
-	private String firstName;
-	private String lastName;
+	private String id;
+	private String name;
+	private int age;
 
 	public Person() {
-		super();
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public Person(String name) {
 		super();
-		this.firstName = name;
+		this.name = name;
+	}
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public Person(String id, String name, int age) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", age=" + age + "]";
 	}
 
 }

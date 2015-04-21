@@ -126,7 +126,7 @@ public class JsonlibTest {
 		for (Object o : list) {
 			if (o instanceof Person) {
 				Person p = (Person) o;
-				System.out.println(p.getLastName());
+				System.out.println(p.getName());
 			}
 		}
 	}
@@ -148,7 +148,7 @@ public class JsonlibTest {
 		List<Person> list = diyBean.getList();
 		for (Person o : list) {
 			Person p = (Person) o;
-			System.out.println(p.getLastName());
+			System.out.println(p.getName());
 		}
 
 		System.out.println("do the map release");
@@ -174,7 +174,7 @@ public class JsonlibTest {
 		}
 
 		for (Person p : output) {
-			System.out.println(p.getLastName());
+			System.out.println(p.getName());
 			/*
 			 * 输出: 　　　　　　　　　　test1 　　　　　　　　　　test2 　　　　　　　　
 			 */

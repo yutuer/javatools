@@ -16,12 +16,20 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<context:component-scan base-package="spring_redis"></context:component-scan>
+	<context:annotation-config />
 
-	<!-- <bean id="springContextUtil" class="spring_redis.SpringContextUtil" 
-		/> -->
+	<context:component-scan base-package="mongo"></context:component-scan>
 
-	<import resource="redis.xml" />
-	<import resource="mongo.xml" />
+	<bean id="template" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg>
+			<bean class="com.mongodb.MongoClient">
+				<constructor-arg value="localhost" />
+				<constructor-arg value="27017" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="database" />
+	</bean>
+
+	<mongo:repositories base-package="mongo" />
 
 </beans>

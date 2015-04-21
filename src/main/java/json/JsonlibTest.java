@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import mongo.Person;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.bean.BeanMorpher;
@@ -125,13 +126,13 @@ public class JsonlibTest {
 		for (Object o : list) {
 			if (o instanceof Person) {
 				Person p = (Person) o;
-				System.out.println(p.getName());
+				System.out.println(p.getLastName());
 			}
 		}
 	}
 
 	// 将json解析成复合类型对象, 包含Map
-	 @Test
+	@Test
 	public void testJSONToBeanHavaMap() {
 		// 把Map看成一个对象
 		String json = "{list:[{name:'test1'},{name:'test2'}],map:{testOne:{name:'test1'},testTwo:{name:'test2'}}}";
@@ -147,7 +148,7 @@ public class JsonlibTest {
 		List<Person> list = diyBean.getList();
 		for (Person o : list) {
 			Person p = (Person) o;
-			System.out.println(p.getName());
+			System.out.println(p.getLastName());
 		}
 
 		System.out.println("do the map release");
@@ -173,7 +174,7 @@ public class JsonlibTest {
 		}
 
 		for (Person p : output) {
-			System.out.println(p.getName());
+			System.out.println(p.getLastName());
 			/*
 			 * 输出: 　　　　　　　　　　test1 　　　　　　　　　　test2 　　　　　　　　
 			 */

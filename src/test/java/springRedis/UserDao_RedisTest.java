@@ -1,4 +1,4 @@
-package spring;
+package springRedis;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;

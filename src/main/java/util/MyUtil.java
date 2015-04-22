@@ -214,7 +214,8 @@ public class MyUtil {
 	 *            millis
 	 * @return
 	 */
-	public static long getNextWeek_DayOfWeek_When_ClockMillis(long millis, int dayOfWeek, int hour, int minute, int second) {
+	public static long getNextWeek_DayOfWeek_When_ClockMillis(long millis, int dayOfWeek, int hour, int minute,
+			int second) {
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(millis);
 		c.set(Calendar.DAY_OF_WEEK, dayOfWeek);
@@ -444,7 +445,8 @@ public class MyUtil {
 		c1.setTimeInMillis(lastTime);
 		Calendar c2 = Calendar.getInstance();
 		c2.setTimeInMillis(now);
-		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
+		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+				&& c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
 	}
 
 	/**
@@ -1097,14 +1099,16 @@ public class MyUtil {
 		}
 	}
 
-	public static Unsafe getUnsafe() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public static Unsafe getUnsafe() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+			IllegalAccessException {
 		Field f = Unsafe.class.getDeclaredField("theUnsafe");
 		f.setAccessible(true);
 		Unsafe unsafe = (Unsafe) f.get(null);
 		return unsafe;
 	}
 
-	public static long sizeOf(Object o) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public static long sizeOf(Object o) throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+			IllegalAccessException {
 		Unsafe u = getUnsafe();
 		HashSet<Field> fields = new HashSet<Field>();
 		Class c = o.getClass();

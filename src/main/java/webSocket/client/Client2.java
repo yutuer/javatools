@@ -20,7 +20,7 @@ public class Client2 {
 	private static Logger log = Logger.getRootLogger();
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException {
-		WebSocketClient wc = new WebSocketClient(new URI("ws://192.168.1.99:9090/apis/reqWrapper"),
+		WebSocketClient wc = new WebSocketClient(new URI("ws://192.168.1.197:9090/apis/reqWrapper"),
 				new Draft_17()) {
 			@Override
 			public void onOpen(ServerHandshake handshakedata) {

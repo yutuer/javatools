@@ -198,8 +198,8 @@ public class ExcelUtil {
 				for (int k = 0; k < getColumnsNum(row0); k++) {
 					ExcelHead bean = new ExcelHead();
 					bean.desc = GPoiUtils.getStringValue(eval, row0.getCell(k));
-					bean.title = GPoiUtils.getStringValue(eval, row1.getCell(k));
-					bean.type = GPoiUtils.getStringValue(eval, row2.getCell(k));
+					bean.title = GPoiUtils.getStringValue(eval, row2.getCell(k));
+					bean.type = GPoiUtils.getStringValue(eval, row1.getCell(k));
 					if (StringUtils.isEmpty(bean.desc) || StringUtils.isEmpty(bean.title) || StringUtils.isEmpty(bean.type)) {
 						log.error(String.format("%s 检查%d列, 有为''的cell\n", filePath, k + 1));
 						continue;

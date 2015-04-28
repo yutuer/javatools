@@ -16,6 +16,8 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+	<context:component-scan base-package="spring_redis"></context:component-scan>
+
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxTotal" value="500" />
 		<property name="maxIdle" value="5" />

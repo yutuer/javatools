@@ -16,11 +16,11 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<!-- <bean id="springContextUtil" class="spring_redis.SpringContextUtil" 
-		/> -->
+	<context:annotation-config />
 
-	<import resource="redis.xml" />
-	<import resource="mongo.xml" />
-	<import resource="anno.xml" />
+	<context:component-scan base-package="annotation.dao" />
+	<context:component-scan base-package="annotation.service" />
+
+	<bean id="AHandler" class="annotation.handler.AHandler"></bean>
 
 </beans>

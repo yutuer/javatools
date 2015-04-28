@@ -19,7 +19,8 @@ public class WebSocketServer {
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // 这个是用于serversocketchannel的eventloop
 		EventLoopGroup workerGroup = new NioEventLoopGroup(); // 这个是用于处理accept到的channel
 		try {
-			server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).localAddress(port).childHandler(new WebSocketChannelInitializer());
+			server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).localAddress(port)
+					.childHandler(new WebSocketChannelInitializer());
 			ChannelFuture f = server.bind(port).sync();
 			f.channel().closeFuture().sync(); // 相当于在这里阻塞，直到serverchannel关闭
 		} finally {

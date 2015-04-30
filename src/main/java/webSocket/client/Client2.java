@@ -1,5 +1,8 @@
 package webSocket.client;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -19,7 +22,7 @@ import com.pureland.common.protocal.ReqWrapperProtocal.ReqWrapper;
 public class Client2 {
 	private static Logger log = Logger.getRootLogger();
 
-	public static void main(String[] args) throws URISyntaxException, InterruptedException {
+	public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
 		WebSocketClient wc = new WebSocketClient(new URI("ws://192.168.1.197:9090/apis/reqWrapper"),
 				new Draft_17()) {
 			@Override
@@ -51,7 +54,15 @@ public class Client2 {
 				.setRequestType(com.pureland.common.protocal.ReqWrapperProtocal.ReqWrapper.RequestType.GM);
 		GMReq.Builder gmBuilder = GMReq.newBuilder();
 		GMSaveFormation.Builder gmsaveFormationBuilder = GMSaveFormation.newBuilder();
-		gmsaveFormationBuilder.setPngData(ByteString.copyFrom(new byte[512 * 512]));
+
+		String path = "C:/upload.png";
+		File f = new File(path);
+		byte[] b = new byte[(int) f.length()];
+		FileInputStream fis = new FileInputStream(f);
+		fis.read(b, 0, (int) f.length());
+		fis.close();
+
+		gmsaveFormationBuilder.setPngData(ByteString.copyFrom(b));
 		gmBuilder.setGmSaveFormation(gmsaveFormationBuilder.build());
 		reqWrapBuilder.setGmReq(gmBuilder.build());
 		baseReqBuilder.setReqWrapper(reqWrapBuilder.build());

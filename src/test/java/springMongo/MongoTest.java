@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 
 import mongo.Person;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -22,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mongodb.WriteResult;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:Application.xml")
 public class MongoTest extends AbstractJUnit4SpringContextTests {
@@ -29,10 +32,10 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 	@Resource
 	private MongoTemplate mongoTemplate;
 
-	@Test
-	public void testAddDoc() {
+//	@Test
+	public void test_0_AddDoc() {
 		Person p = new Person("Joe", 34);
-		Person p2 = new Person("1001", "Joe", 34);
+		Person p2 = new Person("1001", "li", 34);
 		Person p11 = new Person("1011", "zhangsan", 20);
 		Person p12 = new Person("1012", "zhangsan2", 21);
 		Person p13 = new Person("1013", "zhangsan3", 23);
@@ -48,7 +51,7 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void testFindDoc() {
+	public void test_1_FindDoc() {
 		// 根据id查询,此id为mongo生成的id
 		Person person = this.mongoTemplate.findById("1011", Person.class);
 		System.out.println(person);
@@ -60,26 +63,27 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 
 		// 使用query对象查询列表
 		query = new Query(Criteria.where("age").lt(30)).// age小于30
-				with(new Sort(Direction.ASC, "age"));// age 升序
+				with(new Sort(Direction.DESC, "age"));// age 升序
 		// query.with(Pageable );//可分页查询
 
-		List<Person> list = this.mongoTemplate.find(query.with(new Sort(Direction.ASC, "age")), Person.class);
+		List<Person> list = this.mongoTemplate.find(query, Person.class);
 		System.out.println(list);
 	}
 
-	@Test
-	public void testUpdateDoc() {
+//	@Test
+	public void test_2_UpdateDoc() {
 		// age为34的person，age加1
-		Query query = new Query(Criteria.where("id").is(1011));
+		Query query = new Query(Criteria.where("id").is("1011"));
 		Update update = new Update().inc("age", 1);
 		Person p = this.mongoTemplate.findAndModify(query, update, Person.class);
 		System.out.println(p);
 
-		p = this.mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), Person.class);// returnNew(true)将更新后的对象返回
+		p = this.mongoTemplate.findAndModify(query, update, FindAndModifyOptions.options().returnNew(true),
+				Person.class);// returnNew(true)将更新后的对象返回
 		System.out.println(p);
 
 		// 将age为21的name改成zhangsan22，如果有多个age为21的，则只改变第一个
-		query = new Query(Criteria.where("age").is(21));
+		query = new Query(Criteria.where("age").is(34));
 		update = new Update().set("name", "zhangsan22");
 		WriteResult result = this.mongoTemplate.updateFirst(query, update, Person.class);
 		System.out.println(result);
@@ -87,10 +91,13 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 		// 将age为21的name改成zhangsan22，如果有多个age为21的，全部更新
 		result = mongoTemplate.upsert(query, update, Person.class);
 		System.out.println(result);
+		
+		result = mongoTemplate.updateMulti(query, update, Person.class);
+		System.out.println(result);
 	}
 
-	@Test
-	public void testRemoveDoc() {
+	// @Test
+	public void test_3_RemoveDoc() {
 		Query query = new Query(Criteria.where("age").is(35));
 		// mongoTemplate.findAndRemove(query, Person.class);//删除文档
 		// mongoTemplate.findAndRemove(query, Person.class,

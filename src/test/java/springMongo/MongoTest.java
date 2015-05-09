@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import mongo.Person;
+import mongo.module.ExtModule;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -32,19 +33,37 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 	@Resource
 	private MongoTemplate mongoTemplate;
 
-//	@Test
+	@Test
 	public void test_0_AddDoc() {
+		mongoTemplate.dropCollection(Person.class);
+		mongoTemplate.dropCollection(ExtModule.class);
+
 		Person p = new Person("Joe", 34);
+
 		Person p2 = new Person("1001", "li", 34);
+
 		Person p11 = new Person("1011", "zhangsan", 20);
 		Person p12 = new Person("1012", "zhangsan2", 21);
 		Person p13 = new Person("1013", "zhangsan3", 23);
+
+		ExtModule em = new ExtModule();
+		em.setPerson(p2);
+		em.getPersons().add(p);
+		em.getPersons().add(p2);
+		em.setId(1111);
+		em.setCrown(1);
+		em.setLevel(3);
+		mongoTemplate.insert(em);
+		em.setCrown(100);
+		mongoTemplate.save(em);
+		
+
 		List<Person> list = new ArrayList<Person>();
 		list.add(p11);
 		list.add(p12);
 		list.add(p13);
-		this.mongoTemplate.insert(p);// 默认保存在person集合中(与类名称一致)
-		this.mongoTemplate.insert(p2, "person2");// 指定保存在person2集合中
+		// this.mongoTemplate.insert(p);// 默认保存在person集合中(与类名称一致)
+		// this.mongoTemplate.insert(p2, "person2");// 指定保存在person2集合中
 		this.mongoTemplate.insertAll(list);// 默认保存在person集合中(与类名称一致)
 		// mongoTemplate.insert(list, collectionName);//指定保存的集合
 		// mongoTemplate.insert(list, Person.class);// 默认保存在person集合中(与类名称一致)
@@ -52,12 +71,19 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void test_1_FindDoc() {
+		Query query = new Query(Criteria.where("name").is("Joe"));
+		Person p = mongoTemplate.findOne(query, Person.class);
+		System.out.println(p);
+
+		ExtModule em = mongoTemplate.findById(1111, ExtModule.class);
+		System.out.println(em);
+
 		// 根据id查询,此id为mongo生成的id
 		Person person = this.mongoTemplate.findById("1011", Person.class);
 		System.out.println(person);
 
 		// 使用query对象查询
-		Query query = new Query(Criteria.where("age").is(34));
+		query = new Query(Criteria.where("age").is(34));
 		person = this.mongoTemplate.findOne(query, Person.class);
 		System.out.println(person);
 
@@ -70,7 +96,7 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 		System.out.println(list);
 	}
 
-//	@Test
+	// @Test
 	public void test_2_UpdateDoc() {
 		// age为34的person，age加1
 		Query query = new Query(Criteria.where("id").is("1011"));
@@ -91,7 +117,7 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 		// 将age为21的name改成zhangsan22，如果有多个age为21的，全部更新
 		result = mongoTemplate.upsert(query, update, Person.class);
 		System.out.println(result);
-		
+
 		result = mongoTemplate.updateMulti(query, update, Person.class);
 		System.out.println(result);
 	}

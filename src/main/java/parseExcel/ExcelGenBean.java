@@ -35,7 +35,7 @@ public class ExcelGenBean {
 		if (!f.exists()) {
 			f.mkdirs();
 		}
-		
+
 		final String templateString = MyUtil.getFileContent("src/main/resources/genTemplate/ExcelBeanFile");
 		final String field = "private";
 		for (Entry<String, List<ExcelHead>> entry : map_head.entrySet()) {
@@ -76,9 +76,11 @@ public class ExcelGenBean {
 						String type = transferType(head.type);
 						fieldsb.append(String.format(fieldFormat, head.desc, field, type, head.title));
 
-						getMethodsb.append(String.format(getMethodFormat, type, MyUtil.firstChar2Upper(head.title), head.title));
+						getMethodsb.append(String.format(getMethodFormat, type,
+								MyUtil.firstChar2Upper(head.title), head.title));
 
-						setMethodsb.append(String.format(setMethodFormat, MyUtil.firstChar2Upper(head.title), type, head.title, head.title, head.title));
+						setMethodsb.append(String.format(setMethodFormat, MyUtil.firstChar2Upper(head.title),
+								type, head.title, head.title, head.title));
 
 						conDefList_str.add("String " + head.title);
 						conDefList.add(type + " " + head.title);
@@ -103,11 +105,16 @@ public class ExcelGenBean {
 					String tableName = getTableName(MyUtil.firstChar2Lower(cname));
 					String insertSql = String.format(insertSqlFormat, tableName, insertSql_str);
 
-					String content = templateString.replaceAll("%cname%", cname).replaceAll("%field_def%", fieldsb.toString())
-							.replaceAll("%construct_def%", conDef).replaceAll("%construct_strDef%", conDef_str)
-							.replaceAll("%construct_assign%", conAssignsb.toString()).replaceAll("%construct_strAssign%", conRef)
-							.replaceAll("%toString%", toString.toString()).replaceAll("%get_method%", getMethodsb.toString())
-							.replaceAll("%set_method%", setMethodsb.toString()).replaceAll("%insert_sql%", insertSql).replaceAll("%field_Sql%", fieldSql);
+					String content = templateString.replaceAll("%cname%", cname)
+							.replaceAll("%field_def%", fieldsb.toString())
+							.replaceAll("%construct_def%", conDef)
+							.replaceAll("%construct_strDef%", conDef_str)
+							.replaceAll("%construct_assign%", conAssignsb.toString())
+							.replaceAll("%construct_strAssign%", conRef)
+							.replaceAll("%toString%", toString.toString())
+							.replaceAll("%get_method%", getMethodsb.toString())
+							.replaceAll("%set_method%", setMethodsb.toString())
+							.replaceAll("%insert_sql%", insertSql).replaceAll("%field_Sql%", fieldSql);
 					return content;
 				}
 
@@ -156,7 +163,8 @@ public class ExcelGenBean {
 				}
 			};
 
-			FileUtil.writeFile("src/main/java/parseExcel/bean/" + cname, beanFileLogic.createContent(cname, fieldList));
+			FileUtil.writeFile("src/main/java/parseExcel/bean/" + cname,
+					beanFileLogic.createContent(cname, fieldList));
 		}
 	}
 }

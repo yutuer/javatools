@@ -21,6 +21,11 @@ public class ExcelHead implements IHead {
 	 * 表格字段类型
 	 */
 	public String type;
+	
+	/**
+	 * 属于 第几列
+	 */
+	public int column;
 
 	@Override
 	public String getDesc() {
@@ -36,5 +41,8 @@ public class ExcelHead implements IHead {
 	public String getType() {
 		return type;
 	}
-
+	
+	public int getColumn() {
+		return column;
+	}
 }

@@ -53,7 +53,7 @@ public class MongoTest extends AbstractJUnit4SpringContextTests {
 		em.setId(1111);
 		em.setCrown(1);
 		em.setLevel(3);
-		mongoTemplate.insert(em);
+		mongoTemplate.save(em);
 		em.setCrown(100);
 		mongoTemplate.save(em);
 		

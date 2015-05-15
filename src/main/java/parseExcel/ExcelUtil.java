@@ -200,6 +200,7 @@ public class ExcelUtil {
 					bean.desc = GPoiUtils.getStringValue(eval, row0.getCell(k));
 					bean.title = GPoiUtils.getStringValue(eval, row2.getCell(k));
 					bean.type = GPoiUtils.getStringValue(eval, row1.getCell(k));
+					bean.column = k;
 					if (StringUtils.isEmpty(bean.desc) || StringUtils.isEmpty(bean.title) || StringUtils.isEmpty(bean.type)) {
 						log.error(String.format("%s 检查%d列, 有为''的cell\n", filePath, k + 1));
 						continue;
@@ -279,6 +280,13 @@ public class ExcelUtil {
 					continue;
 
 				List<ExcelHead> head = heads.get(sheet.getSheetName());
+				
+				List<Integer> columns = Lists.newArrayList();
+				for (ExcelHead h : head) {
+					columns.add(h.getColumn());
+				}
+				int idColumn = columns.get(0);
+				
 				Map<String, List<Object>> rows = new LinkedHashMap<String, List<Object>>();
 				int strat = sheet.getFirstRowNum() + 3;
 				int end = sheet.getLastRowNum();
@@ -289,15 +297,17 @@ public class ExcelUtil {
 					List<Object> cells = Lists.newArrayList();
 					String id = "";
 					for (int k = 0; k < getColumnsNum(row); k++) {
-						if (k >= head.size())
-							break;
+						if (!columns.contains(k)) {
+							continue;
+						}
 						Cell cell = row.getCell(k);
 						try {
 							String str = GPoiUtils.getStringValue(eval, cell).trim();
 							if (k == 0 && (str == null || str.equals("")))
 								break;
-							if (k == 0)
+							if (k == idColumn) {
 								id = str;
+							}
 							cells.add(str);
 						} catch (Exception e) {
 							ExcelHead eh = head.get(k);

@@ -7,7 +7,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import spring_redis.UserService_redis;
+import spring_redis.service.UserService_redis;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDao_RedisTest {

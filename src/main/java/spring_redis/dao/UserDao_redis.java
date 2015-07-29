@@ -1,4 +1,4 @@
-package spring_redis;
+package spring_redis.dao;
 
 import java.util.List;
 
@@ -18,6 +18,8 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
+
+import spring_redis.User;
 
 import com.google.common.collect.Lists;
 
@@ -209,7 +211,8 @@ public class UserDao_redis {
 
 	private RedisScript<Integer> script() {
 		DefaultRedisScript<Integer> redisScript = new DefaultRedisScript<Integer>();
-		redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/searchClan.lua")));
+		redisScript
+				.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/searchClan.lua")));
 		redisScript.setResultType(Integer.class);
 		return redisScript;
 	}
@@ -227,8 +230,8 @@ public class UserDao_redis {
 		String numMaxnium = SKIP;
 
 		RedisScript<Integer> redisScript = script();
-		Object o = strRedisTemplate.execute(redisScript,
-				Lists.newArrayList(country, fightRate, joinType, numMinimum, numMaxnium, clanLevel, clanName, limitCrown));
+		Object o = strRedisTemplate.execute(redisScript, Lists.newArrayList(country, fightRate, joinType,
+				numMinimum, numMaxnium, clanLevel, clanName, limitCrown));
 		System.out.println(o);
 	}
 

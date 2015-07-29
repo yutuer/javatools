@@ -21,7 +21,7 @@ public class WebSocketServer {
 		try {
 			server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).localAddress(port)
 					.childHandler(new WebSocketChannelInitializer());
-			ChannelFuture f = server.bind(port).sync();
+			ChannelFuture f = server.bind().sync();
 			f.channel().closeFuture().sync(); // 相当于在这里阻塞，直到serverchannel关闭
 		} finally {
 			bossGroup.shutdownGracefully();

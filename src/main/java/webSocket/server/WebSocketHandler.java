@@ -8,7 +8,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import spring_redis.UserService_redis;
+import spring_redis.service.UserService_redis;
 
 public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 

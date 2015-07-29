@@ -1,7 +1,10 @@
-package spring_redis;
+package spring_redis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import spring_redis.User;
+import spring_redis.dao.UserDao_redis;
 
 @Component
 public class UserService_redis {

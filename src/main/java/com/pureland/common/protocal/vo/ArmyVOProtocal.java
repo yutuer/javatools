@@ -21,15 +21,30 @@ public final class ArmyVOProtocal {
      */
     int getCid();
 
-    // required int32 amount = 2;
+    // required string amount = 2;
     /**
-     * <code>required int32 amount = 2;</code>
+     * <code>required string amount = 2;</code>
      */
     boolean hasAmount();
     /**
-     * <code>required int32 amount = 2;</code>
+     * <code>required string amount = 2;</code>
      */
-    int getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>required string amount = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
+
+    // optional int32 t1 = 3;
+    /**
+     * <code>optional int32 t1 = 3;</code>
+     */
+    boolean hasT1();
+    /**
+     * <code>optional int32 t1 = 3;</code>
+     */
+    int getT1();
   }
   /**
    * Protobuf type {@code ArmyVO}
@@ -87,9 +102,14 @@ public final class ArmyVOProtocal {
               cid_ = input.readInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              amount_ = input.readInt32();
+              amount_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              t1_ = input.readInt32();
               break;
             }
           }
@@ -148,25 +168,69 @@ public final class ArmyVOProtocal {
       return cid_;
     }
 
-    // required int32 amount = 2;
+    // required string amount = 2;
     public static final int AMOUNT_FIELD_NUMBER = 2;
-    private int amount_;
+    private java.lang.Object amount_;
     /**
-     * <code>required int32 amount = 2;</code>
+     * <code>required string amount = 2;</code>
      */
     public boolean hasAmount() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 amount = 2;</code>
+     * <code>required string amount = 2;</code>
      */
-    public int getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          amount_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string amount = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int32 t1 = 3;
+    public static final int T1_FIELD_NUMBER = 3;
+    private int t1_;
+    /**
+     * <code>optional int32 t1 = 3;</code>
+     */
+    public boolean hasT1() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 t1 = 3;</code>
+     */
+    public int getT1() {
+      return t1_;
     }
 
     private void initFields() {
       cid_ = 0;
-      amount_ = 0;
+      amount_ = "";
+      t1_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -192,7 +256,10 @@ public final class ArmyVOProtocal {
         output.writeInt32(1, cid_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, amount_);
+        output.writeBytes(2, getAmountBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, t1_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -209,7 +276,11 @@ public final class ArmyVOProtocal {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, amount_);
+          .computeBytesSize(2, getAmountBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, t1_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -329,8 +400,10 @@ public final class ArmyVOProtocal {
         super.clear();
         cid_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        amount_ = 0;
+        amount_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        t1_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -367,6 +440,10 @@ public final class ArmyVOProtocal {
           to_bitField0_ |= 0x00000002;
         }
         result.amount_ = amount_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.t1_ = t1_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -387,7 +464,12 @@ public final class ArmyVOProtocal {
           setCid(other.getCid());
         }
         if (other.hasAmount()) {
-          setAmount(other.getAmount());
+          bitField0_ |= 0x00000002;
+          amount_ = other.amount_;
+          onChanged();
+        }
+        if (other.hasT1()) {
+          setT1(other.getT1());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -457,35 +539,109 @@ public final class ArmyVOProtocal {
         return this;
       }
 
-      // required int32 amount = 2;
-      private int amount_ ;
+      // required string amount = 2;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>required int32 amount = 2;</code>
+       * <code>required string amount = 2;</code>
        */
       public boolean hasAmount() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required int32 amount = 2;</code>
+       * <code>required string amount = 2;</code>
        */
-      public int getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int32 amount = 2;</code>
+       * <code>required string amount = 2;</code>
        */
-      public Builder setAmount(int value) {
-        bitField0_ |= 0x00000002;
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string amount = 2;</code>
+       */
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 amount = 2;</code>
+       * <code>required string amount = 2;</code>
        */
       public Builder clearAmount() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        amount_ = 0;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string amount = 2;</code>
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        amount_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 t1 = 3;
+      private int t1_ ;
+      /**
+       * <code>optional int32 t1 = 3;</code>
+       */
+      public boolean hasT1() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 t1 = 3;</code>
+       */
+      public int getT1() {
+        return t1_;
+      }
+      /**
+       * <code>optional int32 t1 = 3;</code>
+       */
+      public Builder setT1(int value) {
+        bitField0_ |= 0x00000004;
+        t1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 t1 = 3;</code>
+       */
+      public Builder clearT1() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        t1_ = 0;
         onChanged();
         return this;
       }
@@ -515,9 +671,9 @@ public final class ArmyVOProtocal {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014ArmyVO.proto\"%\n\006ArmyVO\022\013\n\003cid\030\001 \002(\005\022\016\n" +
-      "\006amount\030\002 \002(\005B1\n\037com.pureland.common.pro" +
-      "tocal.voB\016ArmyVOProtocal"
+      "\n\014ArmyVO.proto\"1\n\006ArmyVO\022\013\n\003cid\030\001 \002(\005\022\016\n" +
+      "\006amount\030\002 \002(\t\022\n\n\002t1\030\003 \001(\005B1\n\037com.purelan" +
+      "d.common.protocal.voB\016ArmyVOProtocal"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -529,7 +685,7 @@ public final class ArmyVOProtocal {
           internal_static_ArmyVO_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ArmyVO_descriptor,
-              new java.lang.String[] { "Cid", "Amount", });
+              new java.lang.String[] { "Cid", "Amount", "T1", });
           return null;
         }
       };

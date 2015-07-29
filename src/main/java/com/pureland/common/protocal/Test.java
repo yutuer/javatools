@@ -310,12 +310,12 @@ public class Test {
 	}
 	
 	public static void output7() throws IOException {
-		ArmyVO usedArmyVO1 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12701).setAmount(10).build();
-		ArmyVO usedArmyVO2 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12702).setAmount(10).build();
+//		ArmyVO usedArmyVO1 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12701).setAmount(10).build();
+//		ArmyVO usedArmyVO2 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12702).setAmount(10).build();
 //		ArmyVO usedArmyVO3 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(3).setAmount(20).build();
 		
-		ArmyVO killedDefendArmyVO1 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12701).setAmount(1).build();
-		ArmyVO killedDefendArmyVO2 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12702).setAmount(2).build();
+//		ArmyVO killedDefendArmyVO1 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12701).setAmount(1).build();
+//		ArmyVO killedDefendArmyVO2 = ArmyVOProtocal.ArmyVO.newBuilder().setCid(12702).setAmount(2).build();
 		
 		ResourceVO goldResource = ResourceVOProtocal.ResourceVO.newBuilder().setResourceType(ResourceType.Gold).setResourceCount(12).build();
 		ResourceVO oilResource = ResourceVOProtocal.ResourceVO.newBuilder().setResourceType(ResourceType.Oil).setResourceCount(35).build();
@@ -328,11 +328,11 @@ public class Test {
 		                                                  .setRewardOilByCrownLevel(20)
 		                                                  .setTimestamp(System.currentTimeMillis())
 		                                                  .setPeerId(2);
-		battleResultBuilder.addUsedArmies(usedArmyVO1);
-		battleResultBuilder.addUsedArmies(usedArmyVO2);
+//		battleResultBuilder.addUsedArmies(usedArmyVO1);
+//		battleResultBuilder.addUsedArmies(usedArmyVO2);
 //		battleResultBuilder.addUsedArmies(usedArmyVO3);
-		battleResultBuilder.addKilledDefenderDonatedArmies(killedDefendArmyVO1);
-		battleResultBuilder.addKilledDefenderDonatedArmies(killedDefendArmyVO2);
+//		battleResultBuilder.addKilledDefenderDonatedArmies(killedDefendArmyVO1);
+//		battleResultBuilder.addKilledDefenderDonatedArmies(killedDefendArmyVO2);
 		battleResultBuilder.addStolenResources(goldResource);
 		battleResultBuilder.addStolenResources(oilResource);
 		BattleResultVO battleResultVO = battleResultBuilder.build();

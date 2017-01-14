@@ -72,7 +72,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 	}
 
 	@Override
-	protected void messageReceived(final ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
 		long beginTime = System.nanoTime();
 		userService.addUserNoTranction(100000);
 		long endTime = System.nanoTime();

@@ -25,14 +25,13 @@ public class FirstHttpRequestHandler extends SimpleChannelInboundHandler<FullHtt
 	}
 
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
 		if (wsUri.equalsIgnoreCase(request.uri())) {
 			// 传递请求到管道的下一个handler,这里需要调用retain,因为在channelRead0（）完成之后会在FullHttpRequest上调用release()
 			ctx.fireChannelRead(request.retain());
 		} else {
 			send100Continue(ctx);
 		}
-
 	}
 
 }

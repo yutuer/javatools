@@ -16,6 +16,8 @@ public class ExcelGenBean {
 		genBeans();
 	}
 
+	
+	
 	public static void genBeans() {
 		String path = "src/main/resources/excels";
 		String path2 = "excels";

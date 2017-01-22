@@ -1,4 +1,4 @@
-package parseExcel;
+package parseExcel.head;
 
 /**
  * Excel头信息 即:前三行的列信息

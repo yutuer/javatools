@@ -35,6 +35,8 @@ import util.MyUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import parseExcel.head.ExcelHead;
+
 /**
  * excel辅助工具类
  * 

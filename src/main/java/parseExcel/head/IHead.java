@@ -1,4 +1,4 @@
-package parseExcel;
+package parseExcel.head;
 
 public interface IHead {
 

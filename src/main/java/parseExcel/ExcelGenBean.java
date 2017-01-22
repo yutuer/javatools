@@ -9,6 +9,8 @@ import util.MyUtil;
 
 import com.google.common.collect.Lists;
 
+import parseExcel.head.ExcelHead;
+
 public class ExcelGenBean {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
 		genBeans();

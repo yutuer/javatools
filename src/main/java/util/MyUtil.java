@@ -1,8 +1,5 @@
 package util;
 
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyObject;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,6 +44,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 import sun.misc.Unsafe;
 
 public class MyUtil {
@@ -60,54 +59,6 @@ public class MyUtil {
 	public static final long DAY = 24L * HOUR;
 
 	public static final Set<String> TypeSet = new HashSet<String>();
-
-	/**
-	 * 对于每一个在collection中的T,将其通过logic 映射为V
-	 * 
-	 * @param list
-	 * @param logic
-	 * @return
-	 */
-	public static <T, V> List<V> List_Map(Collection<T> list, CollectionLogic<T, V> logic) {
-		List<V> retList = getArrayList();
-		for (T t : list) {
-			retList.add(logic.doLogic(t));
-		}
-		return retList;
-	}
-
-	public static <T, V> V List_FoldLeft(Iterator<T> iter, V result, CollectionLogic<T, V> logic) {
-		if (!iter.hasNext()) {
-			return result;
-		}
-		T i = iter.next();
-		return List_FoldLeft(iter, logic.doLogic(i), logic);
-	}
-
-	public static <T> List<T> List_Filter(Collection<T> list, CollectionLogic<T, Boolean> logic) {
-		List<T> retList = getArrayList();
-		for (T t : list) {
-			if (logic.doLogic(t)) {
-				retList.add(t);
-			}
-		}
-		return retList;
-	}
-
-	public static <T> boolean List_All(Collection<T> list, CollectionLogic<T, Boolean> logic) {
-		for (T t : list) {
-			if (!logic.doLogic(t)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public static <T> void List_Foreach(Collection<T> list, CollectionLogic<T, Void> logic) {
-		for (T t : list) {
-			logic.doLogic(t);
-		}
-	}
 
 	public static TreeNode getTreeNode() {
 		return new DefaultMutableTreeNode();

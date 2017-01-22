@@ -1,12 +1,5 @@
 package parseExcel.head;
 
-/**
- * Excel头信息 即:前三行的列信息
- * 
- * @author 王烁
- * @date 2012-11-14
- * @version 1.0
- */
 public class ExcelHead implements IHead {
 
 	/**

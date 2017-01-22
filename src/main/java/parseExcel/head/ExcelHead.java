@@ -1,6 +1,6 @@
 package parseExcel.head;
 
-public class ExcelHead implements IHead {
+public class ExcelHead implements IHeader {
 
 	/**
 	 * 表格描述

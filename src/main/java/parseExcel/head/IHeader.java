@@ -1,6 +1,6 @@
 package parseExcel.head;
 
-public interface IHead {
+public interface IHeader {
 
 	public String getDesc();
 

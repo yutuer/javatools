@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 public class GPoiUtils {
 
 	public static int getIntValue(Cell cell) {
-		if (cell == null || cell.toString().trim().equals("")) {
+		if (cell == null || cell.toString().isEmpty()) {
 			return 0;
 		}
 		try {
@@ -24,7 +24,7 @@ public class GPoiUtils {
 	}
 
 	public static double getDoubleValue(Cell cell) {
-		if (cell == null) {
+		if (cell == null || cell.toString().isEmpty()) {
 			return 0.0;
 		}
 		try {
@@ -43,8 +43,8 @@ public class GPoiUtils {
 		}
 	}
 
-	public static String getStringValue(FormulaEvaluator eval,Cell cell) {
-		if (cell == null) {
+	public static String getStringValue(FormulaEvaluator eval, Cell cell) {
+		if (cell == null || cell.toString().isEmpty()) {
 			return "";
 		}
 		String str = cell.toString().trim();
@@ -99,7 +99,7 @@ public class GPoiUtils {
 	}
 	
 	public static float getFloatValue(Cell cell) {
-		if (cell == null) {
+		if (cell == null || cell.toString().isEmpty()) {
 			return 0;
 		}
 		try {

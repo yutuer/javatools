@@ -16,7 +16,6 @@ public class JavassistLearn {
 		ClassPool cp = ClassPool.getDefault();
 		CtClass ctClass = cp.makeClass("com.slovef.JavassistClass");
 
-		StringBuffer body = null;
 		// 参数 1：属性类型 2：属性名称 3：所属类CtClass
 		CtField ctField = new CtField(cp.get("java.lang.String"), "name", ctClass);
 		ctField.setModifiers(Modifier.PRIVATE);
@@ -26,6 +25,7 @@ public class JavassistLearn {
 		ctClass.addField(ctField, Initializer.constant("default"));
 
 		// 参数 1：参数类型 2：所属类CtClass
+		StringBuffer body = null;
 		CtConstructor ctConstructor = new CtConstructor(new CtClass[] {}, ctClass);
 		body = new StringBuffer();
 		body.append("{\n name=\"me\";\n}");

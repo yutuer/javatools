@@ -56,6 +56,7 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 			ctClass.addField(ctField, Initializer.constant("default"));
 		}
 		
+		System.out.println(ctClass);
 		Class<?> c = ctClass.toClass();
 		return c;
 	}

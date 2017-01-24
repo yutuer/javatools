@@ -124,7 +124,7 @@ public class ExcelSource implements InputSource {
 			ctClass.addField(ctField, Initializer.constant("default"));
 		}
 
-		ctClass.writeFile("parseExcel.domain." + getExcelFileName());
+//		ctClass.writeFile("parseExcel.domain." + getExcelFileName());
 		
 		Map<Integer, IExcelHeader> maps = Maps.newHashMap();
 

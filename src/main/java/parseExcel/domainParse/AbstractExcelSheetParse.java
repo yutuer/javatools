@@ -1,5 +1,8 @@
 package parseExcel.domainParse;
 
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
 import parseExcel.exception.ExcelParseException;
 
 public abstract class AbstractExcelSheetParse implements IExcelSheetParse {
@@ -20,20 +23,20 @@ public abstract class AbstractExcelSheetParse implements IExcelSheetParse {
 		this.maxColumn = maxColumn;
 	}
 
-	protected String getTypeString(String type) {
+	protected CtClass getTypeString(String type) throws NotFoundException {
 		if (type == null) {
 			throw new ExcelParseException("type is null");
 		}
 		switch (type.toLowerCase()) {
 		case "string": {
-			return String.class.getName();
+			return ClassPool.getDefault().get(String.class.getName());
 		}
 		case "int":
-			return int.class.getName();
+			return CtClass.intType;
 		case "double":
-			return double.class.getName();
+			return CtClass.doubleType;
 		case "float": {
-			return float.class.getName();
+			return CtClass.floatType;
 		}
 		default: {
 			throw new ExcelParseException("unknown type");

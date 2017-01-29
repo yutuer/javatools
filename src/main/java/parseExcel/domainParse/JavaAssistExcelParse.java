@@ -2,16 +2,18 @@ package parseExcel.domainParse;
 
 import java.lang.reflect.Modifier;
 
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtField;
-import javassist.CtNewMethod;
-import javassist.CtField.Initializer;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtConstructor;
+import javassist.CtField;
+import javassist.CtField.Initializer;
+import javassist.CtMethod;
+import javassist.CtNewMethod;
+import javassist.bytecode.ClassFile;
 import parseExcel.head.ExcelHead;
 
 public class JavaAssistExcelParse extends AbstractExcelSheetParse {
@@ -31,7 +33,12 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 
 		ClassPool cp = ClassPool.getDefault();
 		CtClass ctClass = cp.makeClass(dir + "." + getDomainClassName());
-
+		ctClass.getClassFile().setMajorVersion(ClassFile.JAVA_7);
+		
+		CtConstructor ctCon = new CtConstructor(new CtClass[]{}, ctClass);
+		ctCon.setBody("{}");
+		ctClass.addConstructor(ctCon);
+		
 		for (int colIx = getMinColumn(); colIx < getMaxColumn(); colIx++) {
 			Cell cell0 = row0.getCell(colIx);
 			Cell cell1 = row1.getCell(colIx);
@@ -44,20 +51,27 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 			String type = cell1.getStringCellValue();
 			String title = cell2.getStringCellValue();
 			ExcelHead eh = new ExcelHead(desc, title, type);
+//			ExcelHead eh = new ExcelHead(desc, title, "string");
 			eh.setColumn(colIx);
-
+			
 			// 设置private field
-			CtField ctField = new CtField(cp.get(getTypeString(eh.getType())), eh.getTitle(), ctClass);
+			CtField ctField = new CtField(getTypeString(eh.getType()), eh.getTitle(), ctClass);
 			ctField.setModifiers(Modifier.PRIVATE);
 
-			// 设置name属性的get set方法
+//			// 设置name属性的get set方法
 			ctClass.addMethod(CtNewMethod.setter(getMethodName("set", eh.getTitle()), ctField));
 			ctClass.addMethod(CtNewMethod.getter(getMethodName("get", eh.getTitle()), ctField));
-			ctClass.addField(ctField, Initializer.constant("default"));
+			ctClass.addField(ctField);
 		}
 		
 		System.out.println(ctClass);
+		
 		Class<?> c = ctClass.toClass();
+		
+		System.out.println(c.getName());
+		
+		Object o = Class.forName(c.getName()).newInstance();
+		
 		return c;
 	}
 

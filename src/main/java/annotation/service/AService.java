@@ -7,11 +7,12 @@ import annotation.dao.ADao;
 
 @Component
 public class AService {
+	
 	@Autowired
 	private ADao adao;
 
-	public void a() {
-		adao.a();
+	public void serviceDo() {
+		adao.daoDo();
 	}
 
 }

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ADao {
 
-	public void a() {
-		System.out.println(1);
+	public void daoDo() {
+		System.out.println("in dao:" + 1);
 	}
 
 }

@@ -1,5 +1,6 @@
 package parseExcel.domainParse;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,8 +11,6 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtField;
-import javassist.CtField.Initializer;
-import javassist.CtMethod;
 import javassist.CtNewMethod;
 import javassist.bytecode.ClassFile;
 import parseExcel.head.ExcelHead;
@@ -71,6 +70,8 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 		System.out.println(c.getName());
 		
 		Object o = Class.forName(c.getName()).newInstance();
+		Method m = c.getDeclaredMethod("setId", int.class);
+		m.invoke(o, 1);
 		
 		return c;
 	}

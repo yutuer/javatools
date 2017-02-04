@@ -21,6 +21,6 @@
 	<context:component-scan base-package="annotation.dao" />
 	<context:component-scan base-package="annotation.service" />
 
-	<bean id="AHandler" class="annotation.handler.AHandler"></bean>
+	<bean id="AHandler" class="annotation.handler.AHandler"/>
 
 </beans>

@@ -20,11 +20,13 @@ public class AHandler {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-//		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
-//		ah.handler();
-
-		BeanFactory app = new XmlBeanFactory(new ClassPathResource("anno.xml"));
+		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
 		AHandler ah = app.getBean(AHandler.class.getSimpleName(), AHandler.class);
-		System.out.println(ah != null);
+		ah.handler();
+
+//		BeanFactory app = new XmlBeanFactory(new ClassPathResource("anno.xml"));
+//		AHandler ah = app.getBean(AHandler.class.getSimpleName(), AHandler.class);
+//		System.out.println(ah != null);
+//		ah.handler();
 	}
 }

@@ -39,7 +39,10 @@ public class ThreadCacheAndMainCache_NewThread {
 				while (true) {
 					if (a.i == 1) {
 						System.out.println(1);
-					} 
+					}
+//					synchronized (b) {
+//						
+//					}
 				}
 			}
 		}).start();

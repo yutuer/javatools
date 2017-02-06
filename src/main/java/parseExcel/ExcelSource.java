@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import parseExcel.domainParse.IExcelSheetParse;
@@ -30,8 +27,6 @@ public class ExcelSource implements InputSource {
 	private Map<Integer, IExcelHeader> maps;
 
 	private Workbook wb = null;
-
-	private FormulaEvaluator eval = null;
 
 	public ExcelSource(String fileName) {
 		super();
@@ -52,10 +47,8 @@ public class ExcelSource implements InputSource {
 		try {
 			if (flag) {
 				wb = new HSSFWorkbook(new POIFSFileSystem(getInputStream()));
-				eval = new HSSFFormulaEvaluator((HSSFWorkbook) wb);
 			} else {
 				wb = new XSSFWorkbook(getInputStream());
-				eval = new XSSFFormulaEvaluator((XSSFWorkbook) wb);
 			}
 		} catch (IOException e) {
 			throw new ExcelParseException(e);
@@ -92,11 +85,11 @@ public class ExcelSource implements InputSource {
 		IExcelSheetParse excelSheetParse = new JavaAssistExcelParse(fileName, domainClassName, minColIx, maxColIx, "parseExcel.domain");
 		Class<?> c = excelSheetParse.parseModel2Class(sheet);
 		
-		
 		Map<Integer, IExcelHeader> maps = Maps.newHashMap();
 
 		for (int row = sheet.getFirstRowNum(); row < sheet.getLastRowNum(); row++) {
 			for (int colIx = minColIx; colIx < maxColIx; colIx++) {
+				
 			}
 		}
 	}

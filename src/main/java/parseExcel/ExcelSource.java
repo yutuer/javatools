@@ -104,7 +104,7 @@ public class ExcelSource implements InputSource {
 			return domainClassName;
 		}
 		domainClassName = domainClassName.substring(index + 1);
-		index = domainClassName.indexOf(".");
+		index = domainClassName.lastIndexOf(".");
 		if (index == -1) {
 			return domainClassName;
 		}

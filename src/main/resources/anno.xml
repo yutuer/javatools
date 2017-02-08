@@ -18,6 +18,9 @@
 
 	<context:annotation-config />
 
+	<!-- 
+	<context:component-scan base-package="annotation" />
+    -->
 	<context:component-scan base-package="annotation.dao" />
 	<context:component-scan base-package="annotation.service" />
 

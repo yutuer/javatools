@@ -58,9 +58,7 @@ public class FutureTest {
 			}
 		};
 		Future<?> f2 = es.submit(r2);
-		
 		Thread.sleep(1000L);
-		
 		f2.cancel(true);
 	}
 }

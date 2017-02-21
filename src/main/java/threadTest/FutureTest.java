@@ -1,4 +1,4 @@
-package test;
+package threadTest;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -30,7 +30,7 @@ public class FutureTest {
 		ThreadPoolExecutor es = (ThreadPoolExecutor)Executors.newFixedThreadPool(2);
 		Future<?> f =  es.submit(r);
 		
-		Thread.sleep(1000L);
+		Thread.sleep(10L);
 		
 		f.cancel(true);
 		
@@ -40,11 +40,11 @@ public class FutureTest {
 				int i = 0;
 				try {
 					while(true){
-						if(Thread.interrupted()){
-							break;
+//						if(Thread.interrupted()){
+//							break;
 //							Thread.currentThread().interrupt();
 //							throw new RuntimeException();
-						}
+//						}
 						TimeUnit.NANOSECONDS.sleep(1);
 						if(i++%10000== 0){
 							System.out.println("r2:" + i);

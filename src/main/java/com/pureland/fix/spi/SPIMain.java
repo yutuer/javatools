@@ -4,10 +4,25 @@ import java.util.ServiceLoader;
 
 public class SPIMain {
 	public static void main(String[] args) {
-		ServiceLoader<IHelloInterface> loaders = ServiceLoader.load(IHelloInterface.class);
+		new Thread(new Runnable() {
 
-		for (IHelloInterface in : loaders) {
-			in.sayHello();
-		}
+			@Override
+			public void run() {
+				
+				while (true) {
+					ServiceLoader<IHelloInterface> loaders = ServiceLoader.load(IHelloInterface.class);
+					for (IHelloInterface in : loaders) {
+						in.sayHello();
+					}
+
+					try {
+						Thread.sleep(2000L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
 	}
 }

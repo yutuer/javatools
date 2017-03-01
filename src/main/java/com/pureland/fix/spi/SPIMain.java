@@ -4,9 +4,9 @@ import java.util.ServiceLoader;
 
 public class SPIMain {
 	public static void main(String[] args) {
-		ServiceLoader<HelloInterface> loaders = ServiceLoader.load(HelloInterface.class);
+		ServiceLoader<IHelloInterface> loaders = ServiceLoader.load(IHelloInterface.class);
 
-		for (HelloInterface in : loaders) {
+		for (IHelloInterface in : loaders) {
 			in.sayHello();
 		}
 	}

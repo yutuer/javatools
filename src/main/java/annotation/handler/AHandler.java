@@ -8,7 +8,7 @@ public class AHandler {
 
 	@Autowired
 	private AService aService;
-
+	
 	public void handler() {
 		aService.serviceDo();
 	}

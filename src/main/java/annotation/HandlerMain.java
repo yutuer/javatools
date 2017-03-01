@@ -3,9 +3,8 @@ package annotation;
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import annotation.handler.AHandler;
 
@@ -18,13 +17,18 @@ public class HandlerMain {
 		//配置log4j日志文件
 		PropertyConfigurator.configureAndWatch(log4jPath, 1000);
 		
-//		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
-//		AHandler ah = app.getBean(AHandler.class.getSimpleName(), AHandler.class);
-//		ah.handler();
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("anno.xml");
+		//此方法会通知所有实现了lifeCycle接口的类
+		context.start();
+		
+		AHandler ah = context.getBean(AHandler.class.getSimpleName(), AHandler.class);
+		ah.handler();
+		
+		context.stop();
 			
-		BeanFactory app = new XmlBeanFactory(new ClassPathResource("anno.xml"));
-		AHandler ah = app.getBean(AHandler.class.getSimpleName(), AHandler.class);
-		logger.info("" + (ah != null));
+//		BeanFactory app = new XmlBeanFactory(new ClassPathResource("anno.xml"));
+//		AHandler ah = app.getBean(AHandler.class.getSimpleName(), AHandler.class);
+//		logger.info("" + (ah != null));
 	}
 	
 }

@@ -5,6 +5,11 @@ package threadTest;
  */
 public class TimeSplitTest {
 
+	/**
+	 * 1.8 inter Xeon 所有核cpu都等量运行
+	 * 
+	 * 
+	 */
 	public static void main(String[] args) {
 		new Thread(new R()).start();
 		new Thread(new R()).start();

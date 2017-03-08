@@ -32,7 +32,7 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 
 		ClassPool cp = ClassPool.getDefault();
 		CtClass ctClass = cp.makeClass(dir + "." + getDomainClassName());
-		ctClass.getClassFile().setMajorVersion(ClassFile.JAVA_7);
+		ctClass.getClassFile().setMajorVersion(ClassFile.JAVA_8);
 		
 		CtConstructor ctCon = new CtConstructor(new CtClass[]{}, ctClass);
 		ctCon.setBody("{}");
@@ -63,11 +63,11 @@ public class JavaAssistExcelParse extends AbstractExcelSheetParse {
 			ctClass.addField(ctField);
 		}
 		
-		System.out.println(ctClass);
+		logger.info(ctClass.toString());
 		
 		Class<?> c = ctClass.toClass();
 		
-		System.out.println(c.getName());
+		logger.info(c.getName());
 		
 		Object o = Class.forName(c.getName()).newInstance();
 		Method m = c.getDeclaredMethod("setId", int.class);

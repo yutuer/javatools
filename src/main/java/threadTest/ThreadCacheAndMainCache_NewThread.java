@@ -20,12 +20,13 @@ public class ThreadCacheAndMainCache_NewThread {
 			public void run() {
 				while (true) {
 					try {
-						TimeUnit.SECONDS.sleep(1);
+						TimeUnit.SECONDS.sleep(10000L);
 						if (a.i == 1) {
 							a.i = 0;
 						} else {
 							a.i = 1;
 						}
+						System.out.println(Thread.currentThread().getName() + ":" + a.i);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -38,7 +39,7 @@ public class ThreadCacheAndMainCache_NewThread {
 			public void run() {
 				while (true) {
 					if (a.i == 1) {
-						System.out.println(1);
+						System.out.println(Thread.currentThread().getName() + ":" + 1);
 					}
 //					synchronized (b) {
 //						

@@ -1,0 +1,2 @@
+ALTER TABLE `person`
+ADD PRIMARY KEY (`ID`);

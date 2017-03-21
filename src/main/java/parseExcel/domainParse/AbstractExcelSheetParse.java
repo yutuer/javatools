@@ -1,12 +1,17 @@
 package parseExcel.domainParse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 import parseExcel.exception.ExcelParseException;
 
 public abstract class AbstractExcelSheetParse implements IExcelSheetParse {
-
+	
+	public static final Logger logger = LoggerFactory.getLogger(AbstractExcelSheetParse.class);
+	
 	private final String domainClassName;
 
 	private final String fileName;

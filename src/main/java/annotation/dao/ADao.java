@@ -2,11 +2,13 @@ package annotation.dao;
 
 import org.springframework.stereotype.Component;
 
+import annotation.HandlerMain;
+
 @Component
 public class ADao {
 
 	public void daoDo() {
-		System.out.println("in Adao:" + 1);
+		HandlerMain.logger.info("in Adao:" + 1);
 	}
 
 }

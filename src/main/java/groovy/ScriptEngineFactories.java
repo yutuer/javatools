@@ -1,4 +1,5 @@
 package groovy;
+
 import java.util.List;
 
 import javax.script.ScriptEngineFactory;
@@ -11,8 +12,7 @@ public class ScriptEngineFactories {
 	public static void main(String[] args) {
 		List<ScriptEngineFactory> factories = new ScriptEngineManager().getEngineFactories();
 		for (ScriptEngineFactory factory : factories) {
-			log.info("lang name: " + factory.getLanguageName());
-			log.info("engine name: " + factory.getEngineName());
+			log.info(String.format("Language name: %s, engine name: %s", factory.getLanguageName(), factory.getEngineName()));
 			log.info(factory.getNames().toString());
 		}
 	}

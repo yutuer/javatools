@@ -8,12 +8,14 @@ public class SubExtendsTest {
 	private static class Base{
 		public Map doStuff(HashMap map){
 			System.out.println("in Base");
+			return map;
 		}
 	}
 	
 	private static class Sub extends Base{
 		public HashMap doStuff(Map map){
 			System.out.println("in Sub");
+			return new HashMap<>();
 		}
 	}
 	

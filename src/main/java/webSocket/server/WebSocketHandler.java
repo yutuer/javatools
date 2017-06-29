@@ -74,7 +74,6 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
 		long beginTime = System.nanoTime();
-		userService.addUserNoTranction(100000);
 		long endTime = System.nanoTime();
 		System.out.println((endTime - beginTime) / 1000 / 1000 / 1000.0);
 		ctx.writeAndFlush(1);

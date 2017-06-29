@@ -76,15 +76,15 @@ public class PrintMethodVisitor extends MethodVisitor {
 	}
 
 	@Override
-	public void visitInsn(int paramInt) {
-		info("visitInsn ----- paramInt:{}", paramInt);
-		super.visitInsn(paramInt);
+	public void visitInsn(int opcode) {
+		info("visitInsn ----- opcode:{}", opcode);
+		super.visitInsn(opcode);
 	}
 
 	@Override
-	public void visitIntInsn(int paramInt1, int paramInt2) {
-		info("visitIntInsn ----- paramInt1:{},paramInt2:{}", paramInt1, paramInt2);
-		super.visitIntInsn(paramInt1, paramInt2);
+	public void visitIntInsn(int opcode, int operand) {
+		info("visitIntInsn ----- opcode:{},operand:{}", opcode, operand);
+		super.visitIntInsn(opcode, operand);
 	}
 
 	@Override

@@ -19,11 +19,20 @@
 	<context:annotation-config />
 
 	<context:component-scan base-package="annotation" />
+	
 	<!-- 
 	<context:component-scan base-package="annotation.dao" />
 	<context:component-scan base-package="annotation.service" />
-    -->
-
+	<bean id="testA" class="annotation.bean.circle.TestA">
+		<constructor-arg index="0" ref="testB"></constructor-arg>
+	</bean>
+	<bean id="testB" class="annotation.bean.circle.TestB">
+		<constructor-arg index="0" ref="testC"></constructor-arg>
+	</bean>
+	<bean id="testC" class="annotation.bean.circle.TestC">
+		<constructor-arg index="0" ref="testA"></constructor-arg>
+	</bean>
 	<bean id="AHandler" class="annotation.handler.AHandler"/>
+    -->
 
 </beans>

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import annotation.inter.IHandler;
 import annotation.service.AService;
 
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

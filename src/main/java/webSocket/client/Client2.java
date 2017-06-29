@@ -23,7 +23,7 @@ public class Client2 {
 	private static Logger log = Logger.getRootLogger();
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
-		WebSocketClient wc = new WebSocketClient(new URI("ws://192.168.1.197:9090/apis/reqWrapper"),
+		WebSocketClient wc = new WebSocketClient(new URI("ws://localhost:9090/apis/reqWrapper"),
 				new Draft_17()) {
 			@Override
 			public void onOpen(ServerHandshake handshakedata) {
@@ -46,27 +46,29 @@ public class Client2 {
 			}
 		};
 		wc.connect();
-		Thread.sleep(2000L);
+		Thread.sleep(10000L);
 
-		BaseReq.Builder baseReqBuilder = BaseReq.newBuilder();
-		ReqWrapper.Builder reqWrapBuilder = ReqWrapper.newBuilder();
-		reqWrapBuilder
-				.setRequestType(com.pureland.common.protocal.ReqWrapperProtocal.ReqWrapper.RequestType.GM);
-		GMReq.Builder gmBuilder = GMReq.newBuilder();
-		GMSaveFormation.Builder gmsaveFormationBuilder = GMSaveFormation.newBuilder();
-
-		String path = "C:/upload.png";
-		File f = new File(path);
-		byte[] b = new byte[(int) f.length()];
-		FileInputStream fis = new FileInputStream(f);
-		fis.read(b, 0, (int) f.length());
-		fis.close();
-
-		gmsaveFormationBuilder.setPngData(ByteString.copyFrom(b));
-		gmBuilder.setGmSaveFormation(gmsaveFormationBuilder.build());
-		reqWrapBuilder.setGmReq(gmBuilder.build());
-		baseReqBuilder.setReqWrapper(reqWrapBuilder.build());
-		wc.send(baseReqBuilder.build().toByteArray());
+//		BaseReq.Builder baseReqBuilder = BaseReq.newBuilder();
+//		ReqWrapper.Builder reqWrapBuilder = ReqWrapper.newBuilder();
+//		reqWrapBuilder
+//				.setRequestType(com.pureland.common.protocal.ReqWrapperProtocal.ReqWrapper.RequestType.GM);
+//		GMReq.Builder gmBuilder = GMReq.newBuilder();
+//		GMSaveFormation.Builder gmsaveFormationBuilder = GMSaveFormation.newBuilder();
+//
+//		String path = "C:/hsrv.txt";
+//		File f = new File(path);
+//		byte[] b = new byte[(int) f.length()];
+//		FileInputStream fis = new FileInputStream(f);
+//		fis.read(b, 0, (int) f.length());
+//		fis.close();
+//
+//		gmsaveFormationBuilder.setPngData(ByteString.copyFrom(b));
+//		gmBuilder.setGmSaveFormation(gmsaveFormationBuilder.build());
+//		reqWrapBuilder.setGmReq(gmBuilder.build());
+//		baseReqBuilder.setReqWrapper(reqWrapBuilder.build());
+//		wc.send(baseReqBuilder.build().toByteArray());
+		
+		wc.close();
 	}
 
 	private static void log(String str, Object... objs) {

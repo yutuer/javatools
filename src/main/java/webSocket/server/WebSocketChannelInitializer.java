@@ -16,7 +16,7 @@ public class WebSocketChannelInitializer extends ChannelInitializer<SocketChanne
 
 	public WebSocketChannelInitializer() {
 		// 初始化spring容器
-		new ClassPathXmlApplicationContext("Application.xml");
+//		new ClassPathXmlApplicationContext("Application.xml");
 	}
 
 	@Override

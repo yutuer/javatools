@@ -1,4 +1,4 @@
-package annotation.handler;
+package annotation.inter;
 
 public interface IHandler {
 	

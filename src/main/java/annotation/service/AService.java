@@ -12,6 +12,7 @@ public class AService {
 	private ADao adao;
 
 	public void serviceDo() {
+		System.out.println(adao);
 		adao.daoDo();
 	}
 

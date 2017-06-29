@@ -3,7 +3,9 @@ package asm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class C implements A{
+import asm.print.AsmSeq;
+
+public class C extends B implements A{
 	
 	private static Logger log = LoggerFactory.getLogger(C.class.getSimpleName());
 	
@@ -26,6 +28,11 @@ public class C implements A{
 	}
 	
 	public void b() {
-		
+		log.info("success in C.b, classLoader:{}", a.getClass().getClassLoader());
+	}
+	
+	public void c(){
+		AsmSeq d = new AsmSeq();
+		log.info("success in C.c, classLoader:{}", d.getClass().getClassLoader());
 	}
 }

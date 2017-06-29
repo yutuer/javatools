@@ -2,6 +2,7 @@ package asm.print;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -20,11 +21,11 @@ public class ByteClassLoader_loadClass extends ClassLoader {
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		ClassReader classReader;
 		try {
-			if (name.startsWith("org.apache.log4j") || name.equals("asm.A")) {
+			if (name.startsWith("org.apache.log4j")) {
 				return ClassLoader.getSystemClassLoader().loadClass(name);
 			}
 			classReader = new ClassReader(name);
-			ClassWriter classWriter = new ClassWriter(0);
+			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 
 			classReader.accept(classWriter, 0);
 			byte[] byteArray = classWriter.toByteArray();
@@ -38,6 +39,11 @@ public class ByteClassLoader_loadClass extends ClassLoader {
 	@Override
 	protected URL findResource(String name) {
 		return ClassLoader.getSystemResource(name);
+	}
+
+	@Override
+	public Enumeration<URL> getResources(String name) throws IOException {
+		return ClassLoader.getSystemResources(name);
 	}
 
 }

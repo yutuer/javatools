@@ -2,22 +2,16 @@ package annotation;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanCurrentlyInCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
-import annotation.bean.circle.YutTuer;
+import annotation.aop.TestBean;
 import annotation.handler.AHandler;
-import annotation.service.AService;
 
 public class HandlerMain {
 
@@ -53,8 +47,12 @@ public class HandlerMain {
 		// logger.info(resource.getDescription());
 		// }
 		//
-		// ApplicationContext app = new
-		// ClassPathXmlApplicationContext("anno.xml");
+//		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
+		ApplicationContext app = new ClassPathXmlApplicationContext("aop.xml");
+		TestBean tb = (TestBean)app.getBean("test");
+		tb.test();
+//		System.out.println(Arrays.asList(app.getBeanDefinitionNames()));
+//		System.out.println(app.getBean(ADao.class));
 		// {
 		// Map<String, IHandler> beansOfType =
 		// app.getBeansOfType(IHandler.class);
@@ -104,10 +102,10 @@ public class HandlerMain {
 		// }
 		
 		{
-			Resource resource = new ClassPathResource("anno.xml");
-			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
-
-			Object bean = xmlBeanFactory.getBean(AService.class);
+//			Resource resource = new ClassPathResource("anno.xml");
+//			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
+//
+//			Object bean = xmlBeanFactory.getBean(AService.class);
 		}
 	}
 

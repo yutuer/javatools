@@ -7,7 +7,7 @@ import annotation.HandlerMain;
 import annotation.handler.AHandler;
 
 
-@Component
+//@Component
 public class ADao {
 
 	@Autowired

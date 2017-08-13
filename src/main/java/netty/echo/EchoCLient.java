@@ -33,6 +33,7 @@ public class EchoCLient {
 						}
 					});
 			ChannelFuture future = b.connect().sync();
+			System.out.println("client connect future done");
 			future.channel().closeFuture().sync();
 		} finally {
 			group.shutdownGracefully().sync();

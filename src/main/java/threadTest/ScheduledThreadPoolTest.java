@@ -11,7 +11,7 @@ public class ScheduledThreadPoolTest {
 	 * 结论:scheduleWithFixedDelay的调用是等待制的,
 	 */
 	public static void main(String[] args) {
-		ScheduledThreadPoolExecutor scheduleCheckThread = new ScheduledThreadPoolExecutor(2, new DefaultThreadFactory(
+		ScheduledThreadPoolExecutor scheduleExecutor = new ScheduledThreadPoolExecutor(2, new DefaultThreadFactory(
 				"Champion-Check-Thread-Group")) {
 			private ThreadLocal<Long> tl = new ThreadLocal<>();
 
@@ -59,8 +59,10 @@ public class ScheduledThreadPoolTest {
 			}
 		};
 
-		scheduleCheckThread.scheduleWithFixedDelay(r1, 0, 2, TimeUnit.SECONDS);
-		scheduleCheckThread.scheduleWithFixedDelay(r2, 0, 2, TimeUnit.SECONDS);
+		scheduleExecutor.scheduleWithFixedDelay(r1, 0, 2, TimeUnit.SECONDS);
+		scheduleExecutor.scheduleWithFixedDelay(r2, 0, 2, TimeUnit.SECONDS);
+		
+		scheduleExecutor.schedule(r1, 1, TimeUnit.SECONDS);
 
 	}
 }

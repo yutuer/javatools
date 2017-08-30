@@ -15,5 +15,8 @@ public class Log4jSourceView {
 		new PropertyConfigurator().doConfigure(resource.getPath(), loggerRepository);
 		Logger rootLogger = loggerRepository.getRootLogger();
 		rootLogger.info("1111");
+		
+		Logger logger = Logger.getLogger(Log4jSourceView.class);
+		logger.error("222");
 	}
 }

@@ -8,6 +8,13 @@ import java.util.concurrent.TimeUnit;
 public class FutureTest {
 	
 	public static void main(String[] args) throws InterruptedException {
+		final int COUNT_BITS = Integer.SIZE - 3;
+		System.out.println( Integer.toBinaryString(-1 << COUNT_BITS));
+		System.out.println( Integer.toBinaryString(0 << COUNT_BITS));
+		System.out.println( Integer.toBinaryString(1 << COUNT_BITS));
+		System.out.println( Integer.toBinaryString(2 << COUNT_BITS));
+		System.out.println( Integer.toBinaryString(3 << COUNT_BITS));
+		
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
@@ -28,11 +35,11 @@ public class FutureTest {
 		};
 		
 		ThreadPoolExecutor es = (ThreadPoolExecutor)Executors.newFixedThreadPool(2);
-		Future<?> f =  es.submit(r);
+//		Future<?> f =  es.submit(r);
 		
-		Thread.sleep(10L);
+//		Thread.sleep(10L);
 		
-		f.cancel(true);
+//		f.cancel(true);
 		
 		Runnable r2 = new Runnable() {
 			@Override
@@ -57,8 +64,8 @@ public class FutureTest {
 				System.out.println("r2 out:" + i);
 			}
 		};
-		Future<?> f2 = es.submit(r2);
-		Thread.sleep(1000L);
-		f2.cancel(true);
+//		Future<?> f2 = es.submit(r2);
+//		Thread.sleep(1000L);
+//		f2.cancel(true);
 	}
 }

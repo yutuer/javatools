@@ -6,6 +6,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -36,12 +37,23 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 		//原理是循环进行select,然后将delayTaskQueue中的任务放入到taskQueue中, 并且执行taskQueue中的任务, 然后再一次循环 
 		//例如,如果这里做10秒的循环, 或者sleep10秒, 那么定时器任务也无法被执行,会被阻塞10秒钟, 直到下一次selectNow
 		Thread.currentThread().sleep(10 * 1000L);
+		System.out.println("Server channelReadComplete");
+//		ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		cause.printStackTrace();
 		ctx.close();
+	}
+
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		if(evt instanceof IdleStateEvent){
+			IdleStateEvent cast = IdleStateEvent.class.cast(evt);
+			System.out.println(cast.state());
+		}
+		
 	}
 
 }

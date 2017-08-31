@@ -4,3 +4,4 @@
 target/
 src/main/java/parseExcel/bean/
 src/main/java/parseExcel/enums/
+.idea/

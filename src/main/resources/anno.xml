@@ -33,6 +33,5 @@
 		<constructor-arg index="0" ref="testA"></constructor-arg>
 	</bean>
     -->
-	<bean id="AHandler" class="annotation.handler.AHandler"/>
 
 </beans>

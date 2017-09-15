@@ -9,12 +9,6 @@ public class C extends B implements A{
 	
 	private static Logger log = LoggerFactory.getLogger(C.class.getSimpleName());
 	
-	public A a = new A(){
-		@Override
-		public void a() {
-			log.info("in inner A, classLoader:{}", this.getClass().getClassLoader());
-		}};
-	
 	private int i = 1;
 	
 	private static String s;
@@ -27,7 +21,7 @@ public class C extends B implements A{
 		log.info("success in C.a, classLoader:{}", this.getClass().getClassLoader());
 	}
 	
-	public void b() {
+	public void b(A a) {
 		log.info("success in C.b, classLoader:{}", a.getClass().getClassLoader());
 	}
 	

@@ -26,5 +26,10 @@ public class LabelBreak {
 			}
 			System.out.println(a + b);
 		}
+		
+		
+		System.out.println(System.getenv().get("Path"));
+		
+		System.out.println(Boolean.valueOf("true"));
 	}
 }

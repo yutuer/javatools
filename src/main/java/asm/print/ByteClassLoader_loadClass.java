@@ -1,8 +1,6 @@
 package asm.print;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Enumeration;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -17,6 +15,7 @@ public class ByteClassLoader_loadClass extends ClassLoader {
 		super(parent);
 	}
 
+	//不要再复写loadClass方法了
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		ClassReader classReader;
@@ -34,16 +33,6 @@ public class ByteClassLoader_loadClass extends ClassLoader {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	@Override
-	protected URL findResource(String name) {
-		return ClassLoader.getSystemResource(name);
-	}
-
-	@Override
-	public Enumeration<URL> getResources(String name) throws IOException {
-		return ClassLoader.getSystemResources(name);
 	}
 
 }

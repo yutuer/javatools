@@ -4,14 +4,19 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.config.AopNamespaceHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import annotation.aop.TestBean;
 import annotation.handler.AHandler;
+import annotation.service.AService;
 
 public class HandlerMain {
 
@@ -47,7 +52,9 @@ public class HandlerMain {
 		// logger.info(resource.getDescription());
 		// }
 		//
+		new AopNamespaceHandler();
 //		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
+		@SuppressWarnings("resource")
 		ApplicationContext app = new ClassPathXmlApplicationContext("aop.xml");
 		TestBean tb = (TestBean)app.getBean("test");
 		tb.test();
@@ -104,7 +111,6 @@ public class HandlerMain {
 		{
 //			Resource resource = new ClassPathResource("anno.xml");
 //			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
-//
 //			Object bean = xmlBeanFactory.getBean(AService.class);
 		}
 	}

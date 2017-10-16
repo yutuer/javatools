@@ -1,21 +1,20 @@
 package springRedis;
 
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import spring_redis.service.UserService_redis;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDao_RedisTest {
 
 	private ApplicationContext app;
 	private UserService_redis userService;
 
-	@Before
+	@BeforeClass
 	public void before() throws Exception {
 		app = new ClassPathXmlApplicationContext("Application.xml");
 		userService = (UserService_redis) app.getBean("UserService");

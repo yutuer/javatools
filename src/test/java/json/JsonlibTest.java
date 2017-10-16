@@ -1,7 +1,5 @@
 package json;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,12 +16,25 @@ import net.sf.json.JSONObject;
 import net.sf.json.util.JSONUtils;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.ITest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-public class JsonlibTest {
+public class JsonlibTest implements ITest{
+	
+	@BeforeMethod
+	public void beforeMethod(){
+		
+	}
+	
+	@Test(expectedExceptions = RuntimeException.class)
+	public void exception() {
+		throw new RuntimeException();
+	}
 
 	// 一般数组转换成JSON
-	// @Test
+	@Test
 	public void testArrayToJSON() {
 		boolean[] boolArray = new boolean[] { true, false, true };
 		JSONArray jsonArray = JSONArray.fromObject(boolArray);
@@ -32,7 +43,7 @@ public class JsonlibTest {
 	}
 
 	// Collection对象转换成JSON
-	// @Test
+	@Test
 	public void testListToJSON() {
 		List list = new ArrayList();
 		list.add("first");
@@ -43,7 +54,7 @@ public class JsonlibTest {
 	}
 
 	// 字符串json转换成json， 根据情况是用JSONArray或JSONObject
-	// @Test
+	@Test
 	public void testJsonStrToJSON() {
 		JSONArray jsonArray = JSONArray.fromObject("['json','is','easy']");
 		System.out.println(jsonArray);
@@ -65,7 +76,7 @@ public class JsonlibTest {
 	}
 
 	// 复合类型bean转成成json
-	// @Test
+	@Test
 	public void testBeanToJSON() {
 		MyBean bean = new MyBean();
 		bean.setId("001");
@@ -86,17 +97,17 @@ public class JsonlibTest {
 	}
 
 	// 普通类型的json转换成对象
-	// @Test
+	@Test
 	public void testJSONToObject() throws Exception {
 		String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },array:[1,2]}";
 		JSONObject jsonObject = JSONObject.fromObject(json);
 		System.out.println(jsonObject);
 		Object bean = JSONObject.toBean(jsonObject);
-		assertEquals(jsonObject.get("name"), PropertyUtils.getProperty(bean, "name"));
-		assertEquals(jsonObject.get("bool"), PropertyUtils.getProperty(bean, "bool"));
-		assertEquals(jsonObject.get("int"), PropertyUtils.getProperty(bean, "int"));
-		assertEquals(jsonObject.get("double"), PropertyUtils.getProperty(bean, "double"));
-		assertEquals(jsonObject.get("func"), PropertyUtils.getProperty(bean, "func"));
+		Assert.assertEquals(jsonObject.get("name"), PropertyUtils.getProperty(bean, "name"));
+		Assert.assertEquals(jsonObject.get("bool"), PropertyUtils.getProperty(bean, "bool"));
+		Assert.assertEquals(jsonObject.get("int"), PropertyUtils.getProperty(bean, "int"));
+		Assert.assertEquals(jsonObject.get("double"), PropertyUtils.getProperty(bean, "double"));
+		Assert.assertEquals(jsonObject.get("func"), PropertyUtils.getProperty(bean, "func"));
 		System.out.println(PropertyUtils.getProperty(bean, "name"));
 		System.out.println(PropertyUtils.getProperty(bean, "bool"));
 		System.out.println(PropertyUtils.getProperty(bean, "int"));
@@ -179,5 +190,10 @@ public class JsonlibTest {
 			 * 输出: 　　　　　　　　　　test1 　　　　　　　　　　test2 　　　　　　　　
 			 */
 		}
+	}
+
+	@Override
+	public String getTestName() {
+		return "[JsonlibTest]";
 	}
 }

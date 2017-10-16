@@ -15,7 +15,25 @@ public class ByteClassLoader_loadClass extends ClassLoader {
 		super(parent);
 	}
 
-	//不要再复写loadClass方法了
+	@Override
+	public Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+		final Class<?> loadedClass = findLoadedClass(name);
+		if (loadedClass != null) {
+			return loadedClass;
+		}
+
+		try {
+			Class<?> aClass = findClass(name);
+			if (resolve) {
+				resolveClass(aClass);
+			}
+			return aClass;
+		} catch (Exception e) {
+			return super.loadClass(name, resolve);
+		}
+	}
+
+	// 不要再复写loadClass方法了
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		ClassReader classReader;

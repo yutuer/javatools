@@ -109,9 +109,9 @@ public class HandlerMain {
 		// }
 		
 		{
-//			Resource resource = new ClassPathResource("anno.xml");
-//			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
-//			Object bean = xmlBeanFactory.getBean(AService.class);
+			Resource resource = new ClassPathResource("anno.xml");
+			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
+			Object bean = xmlBeanFactory.getBean(AService.class);
 		}
 	}
 

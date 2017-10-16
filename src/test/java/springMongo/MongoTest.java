@@ -8,10 +8,6 @@ import javax.annotation.Resource;
 import mongo.Person;
 import mongo.module.ExtModule;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -22,11 +18,12 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.testng.annotations.Test;
 
 import com.mongodb.WriteResult;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringJUnit4ClassRunner.class)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:Application.xml")
 public class MongoTest extends AbstractJUnit4SpringContextTests {
 

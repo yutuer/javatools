@@ -64,7 +64,7 @@ public class FutureTest {
 				System.out.println("r2 out:" + i);
 			}
 		};
-//		Future<?> f2 = es.submit(r2);
+		Future<?> f2 = es.submit(r2);
 //		Thread.sleep(1000L);
 //		f2.cancel(true);
 	}

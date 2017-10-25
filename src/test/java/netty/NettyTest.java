@@ -1,5 +1,7 @@
 package netty;
 
+import java.nio.charset.Charset;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
@@ -19,6 +21,15 @@ public class NettyTest implements ITest{
 	}
 	
 	@Test
+	public void testStringGetBytes(){
+		Object obj = "success";
+		String str = obj.toString();
+		Assert.assertEquals(str.getBytes().length, str.getBytes(Charset.forName("UTF-8")).length);
+		
+		Assert.assertEquals(str.getBytes().length, 7);
+	}
+	
+//	@Test
 	public void testCompositeByteBuf() {
 		CompositeByteBuf buf = Unpooled.compositeBuffer();
 		boolean is = buf.hasArray();

@@ -52,14 +52,18 @@ public class HandlerMain {
 		// logger.info(resource.getDescription());
 		// }
 		//
-		new AopNamespaceHandler();
-//		ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
-		@SuppressWarnings("resource")
-		ApplicationContext app = new ClassPathXmlApplicationContext("aop.xml");
-		TestBean tb = (TestBean)app.getBean("test");
-		tb.test();
+		
+		{
+//			new AopNamespaceHandler();
+//			ApplicationContext app = new ClassPathXmlApplicationContext("anno.xml");
+//		@SuppressWarnings("resource")
+//		ApplicationContext app = new ClassPathXmlApplicationContext("aop.xml");
+//			TestBean tb = (TestBean)app.getBean("test");
+//			tb.test();
 //		System.out.println(Arrays.asList(app.getBeanDefinitionNames()));
 //		System.out.println(app.getBean(ADao.class));
+		}
+		
 		// {
 		// Map<String, IHandler> beansOfType =
 		// app.getBeansOfType(IHandler.class);
@@ -110,7 +114,9 @@ public class HandlerMain {
 		
 		{
 			Resource resource = new ClassPathResource("anno.xml");
+			@SuppressWarnings("deprecation")
 			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
+			@SuppressWarnings("unused")
 			Object bean = xmlBeanFactory.getBean(AService.class);
 		}
 	}

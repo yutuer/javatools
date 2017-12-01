@@ -12,6 +12,13 @@
 	</properties>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+		<dependency>
+		    <groupId>org.apache.zookeeper</groupId>
+		    <artifactId>zookeeper</artifactId>
+		    <version>3.4.10</version>
+		</dependency>
+	
 		<!-- https://mvnrepository.com/artifact/org.ow2.asm/asm-all -->
 		<dependency>
 			<groupId>org.ow2.asm</groupId>

@@ -8,7 +8,7 @@ import annotation.dao.ADao;
 @Component
 public class AService {
 
-	@Autowired(required = false)
+	@Autowired
 	private ADao adao;
 
 	public void serviceDo() {

@@ -5,8 +5,21 @@
 
     <test name="case1">
       <classes>
-        <class name="testng.DataProviderTest" />
+<!-- 
+        <class name="testng.DataProviderTest" >
+        	<methods>
+        		<include name="two"></include>
+        	</methods>
+        </class>
+ -->
+        <class name="testng.ExpectedExceptionTest" />
       </classes>
+       
+      <!-- 
+       <packages>
+       	<package name="testng"></package>
+       </packages>
+       -->
     </test>
     
 </suite>

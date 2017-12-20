@@ -15,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import annotation.aop.TestBean;
+import annotation.dao.ADao;
 import annotation.handler.AHandler;
 import annotation.service.AService;
 
@@ -29,6 +30,7 @@ public class HandlerMain {
 		// String log4jPath = "log4j.properties";
 		// // 配置log4j日志文件
 		// PropertyConfigurator.configureAndWatch(log4jPath, 1000);
+		System.out.println(Thread.currentThread().getContextClassLoader());
 
 		// try(ConfigurableApplicationContext context = new
 		// ClassPathXmlApplicationContext("anno.xml")){
@@ -113,11 +115,19 @@ public class HandlerMain {
 		// }
 		
 		{
-			Resource resource = new ClassPathResource("anno.xml");
+//			Resource parentResource = new ClassPathResource("aop.xml");
+//			@SuppressWarnings("deprecation")
+//			XmlBeanFactory parentXmlBeanFactory = new XmlBeanFactory(parentResource);
+			
+			Resource childResource = new ClassPathResource("anno.xml");
 			@SuppressWarnings("deprecation")
-			XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
-			@SuppressWarnings("unused")
-			Object bean = xmlBeanFactory.getBean(AService.class);
+			XmlBeanFactory childXmlBeanFactory = new XmlBeanFactory(childResource);
+			Object bean = childXmlBeanFactory.getBean("car");
+			System.out.println(bean);
+			//			@SuppressWarnings("unused")
+//			ADao aDao = childXmlBeanFactory.getBean(ADao.class);
+//			AService aService = childXmlBeanFactory.getBean("AService", AService.class);
+//			aService.serviceDo();
 		}
 	}
 

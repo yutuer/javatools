@@ -13,6 +13,9 @@ public class ReenterLockConditionTest implements Runnable {
 	public void run() {
 		lock.lock();
 		try {
+			Thread.sleep(1000L);
+			
+			System.out.println("condition.await()");
 			condition.await();
 			//此方法不会抛出InterruptedException异常, 不能被打断
 //			condition.awaitUninterruptibly();
@@ -28,11 +31,12 @@ public class ReenterLockConditionTest implements Runnable {
 		Thread t = new Thread(new ReenterLockConditionTest());
 		t.start();
 
-		Thread.sleep(1000L);
+//		Thread.sleep(1000L);
 
 		lock.lock();
 		try {
 			//这里和selector.select,wakeup不同, 这里先调用signal,也不能使下面的await执行
+			System.out.println("condition.signal()");
 			condition.signal();
 		} finally {
 			//此处必须释锁, 上面才能放开await()

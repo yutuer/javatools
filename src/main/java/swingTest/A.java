@@ -3,12 +3,13 @@ package swingTest;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 
 public class A {
 
 	private JFrame frame;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -41,8 +42,9 @@ public class A {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel lblAaaa = new JLabel("aaaa");
-		frame.getContentPane().add(lblAaaa, BorderLayout.NORTH);
+		textField = new JTextField();
+		frame.getContentPane().add(textField, BorderLayout.CENTER);
+		textField.setColumns(10);
 	}
 
 }

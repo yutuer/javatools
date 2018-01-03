@@ -1,4 +1,4 @@
-package swingTest;
+package swingTest.layout;
 
 import java.awt.Button;
 import java.awt.Frame;

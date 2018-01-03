@@ -1,4 +1,4 @@
-package swingTest;
+package swingTest.layout;
 
 import java.awt.BorderLayout;
 import java.awt.Button;

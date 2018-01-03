@@ -1,4 +1,4 @@
-package swingTest;
+package swingTest.thinkinjava;
 
 import java.util.Map;
 

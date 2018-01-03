@@ -1,4 +1,4 @@
-package swingTest;
+package swingTest.thinkinjava;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
